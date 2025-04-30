@@ -1,0 +1,11 @@
+DROP TABLE Order_Items;
+DROP TABLE Orders;
+DROP TABLE Inventory;
+DROP TABLE Conditions;
+DROP TABLE Media_Types;
+DROP TABLE Genre_Album_Details;
+DROP TABLE Artist_Album_Details;
+DROP TABLE Album_Details;
+DROP TABLE Customers;
+DROP TABLE Genres;
+DROP TABLE Artists;
