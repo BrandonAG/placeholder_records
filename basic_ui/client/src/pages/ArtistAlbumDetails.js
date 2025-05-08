@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
+import ArtistAlbumDetailsForm from "../components/ArtistAlbumDetailsForm";
+
 
 function ArtistAlbumDetails() {
     const [data, setData] = useState(null);
@@ -48,10 +50,12 @@ function ArtistAlbumDetails() {
             <tr>
             <td>{item.artist_id}</td>
             <td>{item.album_details_id}</td>
+            <td><button>Delete</button></td>
             </tr>
         )) : <></>}
       </tbody>
     </Table>
+    <ArtistAlbumDetailsForm />
     </>
   );
 }

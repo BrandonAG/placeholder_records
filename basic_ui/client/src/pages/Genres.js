@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
+import GenresForm from "../components/GenresForm";
 
 function Genres() {
     const [data, setData] = useState(null);
@@ -48,10 +49,12 @@ function Genres() {
             <tr>
             <td>{item.genre_id}</td>
             <td>{item.genre_name}</td>
+            <td><button>Delete</button></td>
             </tr>
         )) : <></>}
       </tbody>
     </Table>
+    <GenresForm />
     </>
   );
 }

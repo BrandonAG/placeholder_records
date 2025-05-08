@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
+import InventoryForm from "../components/InventoryForm";
 
 function Inventory() {
     const [data, setData] = useState(null);
@@ -56,10 +57,12 @@ function Inventory() {
             <td>{item.condition_id}</td>
             <td>{item.cost}</td>
             <td>{item.quantity}</td>
+            <td><button>Delete</button></td>
             </tr>
         )) : <></>}
       </tbody>
     </Table>
+    <InventoryForm />
     </>
   );
 }
