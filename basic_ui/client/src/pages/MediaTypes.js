@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 
+const crud_address = 'http://classwork.engr.oregonstate.edu:57793';
+
 function MediaTypes() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -9,7 +11,7 @@ function MediaTypes() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch('http://localhost:3001/api/media-types', {
+          const response = await fetch(crud_address + '/api/media-types', {
             method: 'GET',
             credentials: 'include',
             headers: {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import AlbumDetailsForm from "../components/AlbumDetailsForm";
 
+const crud_address = 'http://classwork.engr.oregonstate.edu:57793';
+
 function AlbumDetails() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ function AlbumDetails() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch('http://localhost:3001/api/album-details', {
+          const response = await fetch(crud_address + '/api/album-details', {
             method: 'GET',
             credentials: 'include',
             headers: {

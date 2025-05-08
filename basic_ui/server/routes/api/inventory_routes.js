@@ -1,24 +1,20 @@
 const router = require('express').Router();
 const connection = require('../../config/connection');
 
-async function getAll() {
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM Inventory`, (err, rows) => {
-            if(err)
-                reject(err);
-            else
-                resolve(rows);
-        });
-    });
-}
-
 router.get('/', async (req, res) => {
-    console.log("GET");
+    try {
+        // Get the results
+        const [rows] = await connection.query(`SELECT * FROM Inventory`);
 
-    const albumDetails = await getAll();
-    res.send(albumDetails);
+        // Send back the results in JSON
+        res.status(200).json(rows)
+
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        // Send a generic error message to the browser
+        res.status(500).send("An error occurred while executing the database queries.");
+    }
 });
-
 
 router.get('/:id', (req, res) => {
 

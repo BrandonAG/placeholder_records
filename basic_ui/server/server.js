@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const routes = require('./routes');
 const cors = require('cors');
@@ -8,15 +9,20 @@ const PORT = process.env.PORT || 3001;
 
 app.set('trust proxy', 1) // trust first proxy
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "*" }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('../client/public'))
+// Serve up static assets
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use(routes);
 
+app.get('*splat', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
 app.listen(PORT ,function(req,res){
-    console.log("Server Started!");
+    console.log('Express started on http://classwork.engr.oregonstate.edu:' + PORT + '; press Ctrl-C to terminate.');
 });

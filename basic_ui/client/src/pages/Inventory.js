@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import InventoryForm from "../components/InventoryForm";
 
+const crud_address = 'http://classwork.engr.oregonstate.edu:57793';
+
 function Inventory() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ function Inventory() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch('http://localhost:3001/api/inventory', {
+          const response = await fetch(crud_address + '/api/inventory', {
             method: 'GET',
             credentials: 'include',
             headers: {

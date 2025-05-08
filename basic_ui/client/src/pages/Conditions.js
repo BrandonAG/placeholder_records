@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 
+const crud_address = 'http://classwork.engr.oregonstate.edu:57793';
+
 function Conditions() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -9,7 +11,7 @@ function Conditions() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch('http://localhost:3001/api/conditions', {
+          const response = await fetch(crud_address + '/api/conditions', {
             method: 'GET',
             credentials: 'include',
             headers: {
