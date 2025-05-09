@@ -2,7 +2,7 @@
     Group 76: Brandon Arnst-GoodRich, Zachary Fox
 */
 
-
+/* create or replace all tables */
 CREATE OR REPLACE TABLE Artists (
     artist_id int AUTO_INCREMENT UNIQUE,
     artist_name varchar(255) NOT NULL,
@@ -32,16 +32,24 @@ CREATE OR REPLACE TABLE Album_Details (
 CREATE OR REPLACE TABLE Artist_Album_Details (
     artist_id int NOT NULL,
     album_details_id int NOT NULL,
-    FOREIGN KEY(artist_id) REFERENCES Artists(artist_id),
-    FOREIGN KEY(album_details_id) REFERENCES Album_Details(album_details_id),
+    FOREIGN KEY(artist_id)
+        REFERENCES Artists(artist_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY(album_details_id)
+        REFERENCES Album_Details(album_details_id)
+        ON DELETE CASCADE,
     PRIMARY KEY(artist_id, album_details_id)
 );
 
 CREATE OR REPLACE TABLE Genre_Album_Details (
     genre_id int NOT NULL,
     album_details_id int NOT NULL,
-    FOREIGN KEY(genre_id) REFERENCES Genres(genre_id),
-    FOREIGN KEY(album_details_id) REFERENCES Album_Details(album_details_id),
+    FOREIGN KEY(genre_id)
+        REFERENCES Genres(genre_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY(album_details_id)
+        REFERENCES Album_Details(album_details_id)
+        ON DELETE CASCADE,
     PRIMARY KEY(genre_id, album_details_id)
 );
 
@@ -63,9 +71,15 @@ CREATE OR REPLACE TABLE Inventory (
     cost dec NOT NULL,
     quantity int NOT NULL,
     UNIQUE(album_details_id, media_type_id, condition_id),
-    FOREIGN KEY(album_details_id) REFERENCES Album_Details(album_details_id),
-    FOREIGN KEY(media_type_id) REFERENCES Media_Types(media_type_id),
-    FOREIGN KEY(condition_id) REFERENCES Conditions(condition_id),
+    FOREIGN KEY(album_details_id)
+        REFERENCES Album_Details(album_details_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY(media_type_id)
+        REFERENCES Media_Types(media_type_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY(condition_id)
+        REFERENCES Conditions(condition_id)
+        ON DELETE CASCADE,
     PRIMARY KEY(inventory_id)
 );
 
@@ -74,7 +88,9 @@ CREATE OR REPLACE TABLE Orders (
     customer_id int NOT NULL,
     total_cost dec NOT NULL,
     date date NOT NULL,
-    FOREIGN KEY(customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY(customer_id)
+        REFERENCES Customers(customer_id)
+        ON DELETE SET NULL,
     PRIMARY KEY(order_id)
 );
 
@@ -83,8 +99,12 @@ CREATE OR REPLACE TABLE Order_Items (
     inventory_id int NOT NULL,
     cost dec NOT NULL,
     quantity int NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY(inventory_id) REFERENCES Inventory(inventory_id),
+    FOREIGN KEY(order_id)
+        REFERENCES Orders(order_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY(inventory_id)
+        REFERENCES Inventory(inventory_id)
+        ON DELETE CASCADE,
     PRIMARY KEY(order_id, inventory_id)
 );
 
