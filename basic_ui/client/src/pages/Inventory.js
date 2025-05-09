@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import InventoryForm from "../components/InventoryForm";
 
-const crud_address = 'http://classwork.engr.oregonstate.edu:57793';
+const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
 function Inventory() {
     const [data, setData] = useState(null);

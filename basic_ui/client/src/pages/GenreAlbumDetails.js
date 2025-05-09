@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import GenreAlbumDetailsForm from "../components/GenreAlbumDetailsForm";
 
-const crud_address = 'http://classwork.engr.oregonstate.edu:57793';
+const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
 function GenreAlbumDetails() {
     const [data, setData] = useState(null);
