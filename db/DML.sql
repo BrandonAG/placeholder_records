@@ -73,34 +73,32 @@ WHERE Genre_Album_Details.genre_id = :genre_id AND Genre_Album_Details.album_det
 
 
 
--- Add Inventory update Inventory by id, delete Inventory by id
-
 -- Get all entries from Inventory
 SELECT * FROM Inventory;
 
 -- Add Inventory 
-INSERT INTO Inventory (inventory_id, album_details_id, media_type_id, condition_id, cost, quantity)
+INSERT INTO Inventory (inventory_id, album_details_id, media_type, condition_type, cost, quantity)
 VALUES
-    (:inventory_id, :album_details_id, :media_type_id, :condition_id, :cost, :quantity);
+    (:inventory_id, :album_details_id, :media_type, :condition_type, :cost, :quantity);
 
 -- Update Inventory by id
 UPDATE Inventory 
 SET inventory_id = :new_inventory_id,
     album_details_id = :new_album_details_id,
-    media_type_id = :new_media_type_id,
-    condition_id = :new_condition_id,
+    media_type = :new_media_type,
+    condition_type = :new_condition_type,
     cost = :new_cost,
     quantity = :new_quantity
 WHERE 
     Inventory.inventory_id = :old_inventory_id AND 
     Inventory.album_details_id = :old_album_details_id AND 
-    Inventory.media_type_id = :old_media_type_id AND
-    Inventory.condition_id = :old_condition_id;
+    Inventory.media_type = :old_media_type AND
+    Inventory.condition_type = :old_condition_type;
 
 -- Delete Inventory by id
 DELETE FROM Inventory
 WHERE 
     Inventory.inventory_id = :inventory_id AND 
     Inventory.album_details_id = :album_details_id AND 
-    Inventory.media_type_id = :media_type_id AND
-    Inventory.condition_id = :condition_id;
+    Inventory.media_type = :media_type AND
+    Inventory.condition_type = :condition_type;
