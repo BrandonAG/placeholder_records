@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 
 app.set('trust proxy', 1) // trust first proxy
 
-app.use(cors({ credentials: true, origin: "*" }));
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL || '*' }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

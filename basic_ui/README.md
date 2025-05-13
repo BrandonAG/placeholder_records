@@ -10,14 +10,25 @@ Inside the client and server folders run the following command.
 npm install
 ```
 
-### Database Environment File
+### Server Environment File
 
-Create a .env file at the root fo the server folder and populate the following inside it. Replace the quoted text with your credentials.
+Create a .env file at the root of the server folder and populate the following inside it. Replace the quoted text with your credentials.
 
 ```
-DB_NAME="your_project_name"
-DB_USER="your_username"
-DB_PW="your_password"
+DB_URL="your_db_url"
+DB_NAME="your_db_name"
+DB_USER="your_db_username"
+DB_PW="your_db_password"
+CLIENT_URL="client_url"
+```
+
+### Client Environment File
+
+Create a .env file at the root of the server folder and populate the following inside it. Replace the quoted text with your credentials.
+
+```
+REACT_APP_CRUD_PATH="server_url"
+PORT="client_port"
 ```
 
 ## Starting The UI in Dev Mode
