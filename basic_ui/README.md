@@ -12,7 +12,7 @@ npm install
 
 ### Server Environment File
 
-Create a .env file at the root of the server folder and populate the following inside it. Replace the quoted text with your credentials.
+Create a .env file at the root of the server folder and populate the following inside it. Replace the quoted text with your details.
 
 ```
 DB_URL="your_db_url"
@@ -24,7 +24,7 @@ CLIENT_URL="client_url"
 
 ### Client Environment File
 
-Create a .env file at the root of the server folder and populate the following inside it. Replace the quoted text with your credentials.
+Create a .env file at the root of the cleint folder and populate the following inside it. Replace the quoted text with your details.
 
 ```
 REACT_APP_CRUD_PATH="server_url"
