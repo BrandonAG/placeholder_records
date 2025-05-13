@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 
+const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
+
 function Orders() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -9,7 +11,7 @@ function Orders() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch('http://localhost:3001/api/orders', {
+          const response = await fetch(crud_address + '/api/orders', {
             method: 'GET',
             credentials: 'include',
             headers: {

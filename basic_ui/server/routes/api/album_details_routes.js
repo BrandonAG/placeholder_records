@@ -1,16 +1,6 @@
 const router = require('express').Router();
 const connection = require('../../config/connection');
 
-async function getAll() {
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM Album_Details`, (err, rows) => {
-            if(err)
-                reject(err);
-            else
-                resolve(rows);
-        });
-    });
-}
 // MODEL FUNCTIONS
 async function getByID(id) {
     return new Promise((resolve, reject) => {
@@ -34,12 +24,19 @@ function isVarchar(str) {
 
 // CONTROLLER FUNCTIONS
 router.get('/', async (req, res) => {
-    console.log("GET");
+    try {
+        // Get the results
+        const [rows] = await connection.query(`SELECT * FROM Album_Details`);
 
-    const albumDetails = await getAll();
-    res.send(albumDetails);
+        // Send back the results in JSON
+        res.status(200).json(rows)
+
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        // Send a generic error message to the browser
+        res.status(500).send("An error occurred while executing the database queries.");
+    }
 });
-
 
 router.get('/:id', async (req, res) => {
     console.log("GET by ID")

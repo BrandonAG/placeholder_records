@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import GenresForm from "../components/GenresForm";
 
+const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
+
 function Genres() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ function Genres() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch('http://localhost:3001/api/genres', {
+          const response = await fetch(crud_address + '/api/genres', {
             method: 'GET',
             credentials: 'include',
             headers: {
