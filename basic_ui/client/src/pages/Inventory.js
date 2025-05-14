@@ -44,8 +44,8 @@ function Inventory() {
         <tr>
           <th>inventory_id</th>
           <th>album_details_id</th>
-          <th>media_type_id</th>
-          <th>condition_id</th>
+          <th>media_type</th>
+          <th>condition_type</th>
           <th>cost</th>
           <th>quantity</th>
         </tr>
@@ -55,8 +55,8 @@ function Inventory() {
             <tr>
             <td>{item.inventory_id}</td>
             <td>{item.album_details_id}</td>
-            <td>{item.media_type_id}</td>
-            <td>{item.condition_id}</td>
+            <td>{item.media_type}</td>
+            <td>{item.condition_type}</td>
             <td>{item.cost}</td>
             <td>{item.quantity}</td>
             <td><button>Delete</button></td>
