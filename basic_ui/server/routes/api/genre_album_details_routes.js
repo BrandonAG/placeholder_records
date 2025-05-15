@@ -4,7 +4,9 @@ const connection = require('../../config/connection');
 router.get('/', async (req, res) => {
     try {
         // Get the results
-        const [rows] = await connection.query(`SELECT * FROM Genre_Album_Details`);
+        const [rows] = await connection.query(`SELECT Genres.genre_name, Album_Details.album_name FROM Genre_Album_Details
+            JOIN Genres ON Genre_Album_Details.genre_id = Genres.genre_id
+            JOIN Album_Details ON Genre_Album_Details.album_details_id = Album_Details.album_details_id`);
 
         // Send back the results in JSON
         res.status(200).json(rows)

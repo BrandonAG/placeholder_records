@@ -43,7 +43,8 @@ function Inventory() {
       <thead>
         <tr>
           <th>inventory_id</th>
-          <th>album_details_id</th>
+          <th>album_name</th>
+          <th>artist_name</th>
           <th>media_type</th>
           <th>condition_type</th>
           <th>cost</th>
@@ -54,7 +55,8 @@ function Inventory() {
         {data !== null ? data.map((item, index) => (
             <tr>
             <td>{item.inventory_id}</td>
-            <td>{item.album_details_id}</td>
+            <td>{item.album_name}</td>
+            <td>{item.artist_name}</td>
             <td>{item.media_type}</td>
             <td>{item.condition_type}</td>
             <td>{item.cost}</td>

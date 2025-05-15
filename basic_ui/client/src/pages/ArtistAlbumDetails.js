@@ -42,15 +42,15 @@ function ArtistAlbumDetails() {
       <Table striped bordered hover>
       <thead>
         <tr>
-          <th>artist_id</th>
-          <th>album_details_id</th>
+          <th>artist_name</th>
+          <th>album_name</th>
         </tr>
       </thead>
       <tbody>
         {data !== null ? data.map((item, index) => (
             <tr>
-            <td>{item.artist_id}</td>
-            <td>{item.album_details_id}</td>
+            <td>{item.artist_name}</td>
+            <td>{item.album_name}</td>
             <td><button>Delete</button></td>
             </tr>
         )) : <></>}
