@@ -3,16 +3,46 @@ function GenreAlbumDetailsForm() {
         <>
         <form>
             <label>Add Genre Album Details</label>
-            <input type='number' min="0" placeholder='Enter genre id'></input>
-            <input type='number' min="0" placeholder='Enter album details id'></input>
+            <select id="genre" name="genre">
+                <option value="select">Select a Genre</option>
+                <option value="1">Genre 1</option>
+                <option value="2">Genre 2</option>
+                <option value="3">Genre 3</option>
+            </select>
+            <select id="album-details" name="album-details">
+                <option value="select">Select an Album</option>
+                <option value="1">Album 1</option>
+                <option value="2">Album 2</option>
+                <option value="3">Album 3</option>
+            </select>
             <button type="submit">Add</button>
         </form>
-                <form>
+        <form>
             <label>Update Genre Album Details</label>
-            <input type='number' min="0" placeholder='Enter genre id to update'></input>
-            <input type='number' min="0" placeholder='Enter album details id to update'></input>
-            <input type='number' min="0" placeholder='Enter new genre id'></input>
-            <input type='number' min="0" placeholder='Enter new album details'></input>
+            <select id="genre" name="genre">
+                <option value="select">Select a Genre</option>
+                <option value="1">Genre 1</option>
+                <option value="2">Genre 2</option>
+                <option value="3">Genre 3</option>
+            </select>
+            <select id="album-details" name="album-details">
+                <option value="select">Select an Album</option>
+                <option value="1">Album 1</option>
+                <option value="2">Album 2</option>
+                <option value="3">Album 3</option>
+            </select>
+            <select id="genre" name="genre">
+                <option value="select">Replace Genre With</option>
+                <option value="1">Genre 1</option>
+                <option value="2">Genre 2</option>
+                <option value="3">Genre 3</option>
+            </select>
+            <select id="album-details" name="album-details">
+                <option value="select">Replace Album With</option>
+                <option value="1">Album 1</option>
+                <option value="2">Album 2</option>
+                <option value="3">Album 3</option>
+            </select>
             <button type="submit">Update</button>
         </form>
         </>

@@ -8,7 +8,12 @@ function ArtistsForm() {
             </form>
             <form>
                 <label>Update Artist</label>
-                <input type="number" min="0" placeholder="Enter artist id to update"></input>
+                <select id="artist" name="artist">
+                    <option value="select">Select an Artist</option>
+                    <option value="1">Artist 1</option>
+                    <option value="2">Artist 2</option>
+                    <option value="3">Artist 3</option>
+                </select>
                 <input type='text' placeholder='Enter updated artist name'></input>
                 <button type="submit">Update</button>
             </form>

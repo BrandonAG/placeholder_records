@@ -3,9 +3,22 @@ function InventoryForm() {
         <>
             <form>
                 <label>Add Inventory</label>
-                <input type='number' min="0" placeholder='Enter album details id'></input>
-                <input type='text' placeholder='Enter media type'></input>
-                <input type='text' placeholder='Enter condition'></input>
+                <select id="album-details" name="album-details">
+                    <option value="select">Select an Album</option>
+                    <option value="1">Album 1</option>
+                    <option value="2">Album 2</option>
+                    <option value="3">Album 3</option>
+                </select>
+                <select id="media-type" name="media-type">
+                    <option value="select">Select Media Type</option>
+                    <option value="1">vinyl</option>
+                    <option value="2">cassette</option>
+                </select>
+                <select id="condition-type" name="condition-type">
+                    <option value="select">Select Condition</option>
+                    <option value="1">new</option>
+                    <option value="2">used</option>
+                </select>
                 <input type='number' min='0' step='any' placeholder='Enter cost'></input>
                 <input type='number' min='0' placeholder='Enter quantity'></input>
                 <button type="submit">Add</button>
@@ -13,10 +26,28 @@ function InventoryForm() {
             </form>
             <form>
                 <label>Update Inventory</label>
-                <input type="number" min="0" placeholder="Enter Inventory id to update"></input>
-                <input type='number' min="0" placeholder='Enter new album details id'></input>
-                <input type='text' placeholder='Enter new media type'></input>
-                <input type='text' placeholder='Enter new condition'></input>
+                <select id="inventory" name="inventory">
+                    <option value="select">Select an Inventory Item</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <select id="album-details" name="album-details">
+                    <option value="select">Replace Album With</option>
+                    <option value="1">Album 1</option>
+                    <option value="2">Album 2</option>
+                    <option value="3">Album 3</option>
+                </select>
+                <select id="media-type" name="media-type">
+                    <option value="select">Change Media Type</option>
+                    <option value="1">vinyl</option>
+                    <option value="2">cassette</option>
+                </select>
+                <select id="condition-type" name="condition-type">
+                    <option value="select">Change Condition</option>
+                    <option value="1">new</option>
+                    <option value="2">used</option>
+                </select>
                 <input type='number' min='0' step='any' placeholder='Enter new cost'></input>
                 <input type='number' min='0' placeholder='Enter new quantity'></input>
                 <button type="submit">Update</button>
