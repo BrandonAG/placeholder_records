@@ -15,9 +15,9 @@ WHERE artist.artist_id = :artist_id_input;
 DELETE FROM Artists WHERE artist.artist_id = :artist_id_input;
 
 
+
 -- Get all entries from Album_Details
 SELECT album_details_id, album_name FROM Album_Details;
-
 
 -- Add Album_Details
 INSERT INTO Album_Details (album_name)
@@ -34,8 +34,12 @@ DELETE FROM Album_Details
 WHERE Album_Details.album_details_id = :album_details_id_input;
 
 
--- Get all entries from Artist_Album_Details 
-SELECT artist_id, album_details_id FROM Artist_Album_Details;
+
+-- Get artist_name and album_name for Artist_Album_Details
+SELECT artist_name, album_name FROM Artists
+INNER JOIN Artist_Album_Details ON Artists.artist_id = Artist_Album_Details.artist_id
+INNER JOIN Album_Details ON Artist_Album_Details.album_details_id = Album_Details.album_details_id
+ORDER BY artist_name, album_name;
 
 -- Add Artist_Album_Details
 INSERT INTO Artist_Album_Details (artist_id, album_details_id)
@@ -46,7 +50,7 @@ VALUES
 UPDATE Artist_Album_Details 
 SET artist_id = :new_artist_id_input,
     album_details_id = :new_album_details_id_input
-WHERE Artist_Album_Details.artist_id = :artist_id_input AND Artist_Album_Details.album_details_id = :album_details_id_input;
+WHERE Artist_Album_Details.artist_id = :old_artist_id_input AND Artist_Album_Details.album_details_id_input = :old_album_details_id_input;
 
 -- Delete Artist_Album_Details by id
 DELETE FROM Artist_Album_Details
@@ -54,8 +58,11 @@ WHERE Artist_Album_Details.artist_id = :artist_id_input AND Artist_Album_Details
 
 
 
--- Get all entries from Genre_Album_Details
-SELECT genre_id, album_details_id FROM Genre_Album_Details;
+-- Get genre_name and album_name for Genre_Album_Details
+SELECT genre_name, album_name FROM Genres
+INNER JOIN Genre_Album_Details ON Genres.genre_id = Genre_Album_Details.genre_id
+INNER JOIN Album_Details ON Genre_Album_Details.album_details_id = Album_Details.album_details_id
+ORDER BY genre_name, album_name;
 
 -- Add Genre_Album_Details
 INSERT INTO Genre_Album_Details (genre_id, album_details_id)
@@ -74,32 +81,28 @@ WHERE Genre_Album_Details.genre_id = :genre_id_input AND Genre_Album_Details.alb
 
 
 
--- Get all entries from Inventory
-SELECT inventory_id, album_details_id, media_type, condition_type, cost, quantity FROM Inventory;
+-- Get album_name and inventory attributes for Inventory
+SELECT inventory_id, album_name, media_type, condition_type, cost, quantity FROM Inventory
+INNER JOIN Album_Details ON Inventory.album_details_id = Album_Details.album_details_id
+ORDER BY inventory_id;
 
 -- Add Inventory 
-INSERT INTO Inventory (inventory_id, album_details_id, media_type, condition_type, cost, quantity)
+INSERT INTO Inventory (album_details_id, media_type, condition_type, cost, quantity)
 VALUES
-    (:inventory_id_input, :album_details_id_input, :media_type_input, :condition_type_input, :cost, :quantity_input);
+    (:album_details_id_input, :media_type_input, :condition_type_input, :cost, :quantity_input);
 
 -- Update Inventory by id
 UPDATE Inventory 
-SET inventory_id = :new_inventory_id_input,
+SET
     album_details_id = :new_album_details_id_input,
     media_type = :new_media_type_input,
     condition_type = :new_condition_type_input,
     cost = :new_cost_input,
     quantity = :new_quantity_input
 WHERE 
-    Inventory.inventory_id = :old_inventory_id_input AND 
-    Inventory.album_details_id = :old_album_details_id_input AND 
-    Inventory.media_type = :old_media_type_input AND
-    Inventory.condition_type = :old_condition_type_input;
+    Inventory.inventory_id = :inventory_id_input ;
 
 -- Delete Inventory by id
 DELETE FROM Inventory
 WHERE 
-    Inventory.inventory_id = :inventory_id_input AND 
-    Inventory.album_details_id = :album_details_id_input AND 
-    Inventory.media_type = :media_type_input AND
-    Inventory.condition_type = :condition_type_input;
+    Inventory.inventory_id = :inventory_id_input;
