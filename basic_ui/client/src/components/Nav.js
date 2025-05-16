@@ -8,6 +8,7 @@ function Navigation() {
       <Navbar bg="primary" data-bs-theme="dark">
         <Container>
           <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/album-details">Album_Details</Nav.Link>
             <Nav.Link href="/artist-album-details">Artist_Album_Details</Nav.Link>
             <Nav.Link href="/artists">Artists</Nav.Link>

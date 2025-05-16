@@ -9,6 +9,7 @@ import GenreAlbumDetails from './pages/GenreAlbumDetails';
 import Genres from './pages/Genres';
 import Inventory from './pages/Inventory';
 import Navigation from './components/Nav';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
       <Navigation />
       <Router>
         <Routes>
-          <Route exact path='/' element={<Artists />}/>
+          <Route exact path='/' element={<Home />}/>
           <Route exact path='/album-details' element={<AlbumDetails />}/>
           <Route exact path='/artist-album-details' element={<ArtistAlbumDetails />}/>
           <Route exact path='/artists' element={<Artists />}/>
