@@ -110,7 +110,7 @@ DELIMITER //
 
 CREATE PROCEDURE select_all_artist_album_details()
 BEGIN
-    SELECT artist_name, album_name FROM Artists
+    SELECT Artist_Album_Details.artist_id, Artist_Album_Details.album_details_id ,artist_name, album_name FROM Artists
     INNER JOIN Artist_Album_Details ON Artists.artist_id = Artist_Album_Details.artist_id
     INNER JOIN Album_Details ON Artist_Album_Details.album_details_id = Album_Details.album_details_id
     ORDER BY artist_name, album_name;
@@ -135,7 +135,7 @@ DELIMITER //
 
 CREATE PROCEDURE select_all_genre_album_details()
 BEGIN
-    SELECT genre_name, album_name FROM Genres
+    SELECT Genre_Album_Details.genre_id, Genre_Album_Details.album_details_id, genre_name, album_name FROM Genres
     INNER JOIN Genre_Album_Details ON Genres.genre_id = Genre_Album_Details.genre_id
     INNER JOIN Album_Details ON Genre_Album_Details.album_details_id = Album_Details.album_details_id
     ORDER BY genre_name, album_name;
