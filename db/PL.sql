@@ -92,3 +92,77 @@ BEGIN
 END; //
 
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS select_all_album_details;
+DELIMITER //
+
+CREATE PROCEDURE select_all_album_details()
+BEGIN
+    SELECT album_details_id, album_name FROM Album_Details;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS select_all_artist_album_details;
+DELIMITER //
+
+CREATE PROCEDURE select_all_artist_album_details()
+BEGIN
+    SELECT artist_name, album_name FROM Artists
+    INNER JOIN Artist_Album_Details ON Artists.artist_id = Artist_Album_Details.artist_id
+    INNER JOIN Album_Details ON Artist_Album_Details.album_details_id = Album_Details.album_details_id
+    ORDER BY artist_name, album_name;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS select_all_artists;
+DELIMITER //
+
+CREATE PROCEDURE select_all_artists()
+BEGIN
+    SELECT artist_id, artist_name FROM Artists;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS select_all_genre_album_details;
+DELIMITER //
+
+CREATE PROCEDURE select_all_genre_album_details()
+BEGIN
+    SELECT genre_name, album_name FROM Genres
+    INNER JOIN Genre_Album_Details ON Genres.genre_id = Genre_Album_Details.genre_id
+    INNER JOIN Album_Details ON Genre_Album_Details.album_details_id = Album_Details.album_details_id
+    ORDER BY genre_name, album_name;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS select_all_genres;
+DELIMITER //
+
+CREATE PROCEDURE select_all_genres()
+BEGIN
+    SELECT genre_id, genre_name FROM Genres;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS select_all_inventory;
+DELIMITER //
+
+CREATE PROCEDURE select_all_inventory()
+BEGIN
+    SELECT inventory_id, album_name, media_type, condition_type, cost, quantity FROM Inventory
+    INNER JOIN Album_Details ON Inventory.album_details_id = Album_Details.album_details_id
+    ORDER BY inventory_id;
+END; //
+
+DELIMITER ;
