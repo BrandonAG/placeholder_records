@@ -8,6 +8,30 @@ function ArtistAlbumDetails() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const handleDelete = async (artist_id, album_id) => {
+      try {
+        const response = await fetch(crud_address + '/api/artist-album-details', {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+                artist_id: artist_id,
+                album_details_id: album_id
+            })
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const json = await response.json();
+      } catch (e) {
+        
+      } finally {
+        window.location.reload();
+      }
+    }
   
     useEffect(() => {
       const fetchData = async () => {
@@ -51,7 +75,7 @@ function ArtistAlbumDetails() {
             <tr>
             <td>{item.artist_name}</td>
             <td>{item.album_name}</td>
-            <td><button>Delete</button></td>
+            <td><button onClick={() => {handleDelete(item.artist_id, item.album_details_id)}}>Delete</button></td>
             </tr>
         )) : <></>}
       </tbody>

@@ -8,6 +8,26 @@ function Genres() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const handleDelete = async (id) => {
+      try {
+        const response = await fetch(crud_address + '/api/genres/' + id, {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const json = await response.json();
+      } catch (e) {
+        
+      } finally {
+        window.location.reload();
+      }
+    }
   
     useEffect(() => {
       const fetchData = async () => {
@@ -51,7 +71,7 @@ function Genres() {
             <tr>
             <td>{item.genre_id}</td>
             <td>{item.genre_name}</td>
-            <td><button>Delete</button></td>
+            <td><button onClick={() => {handleDelete(item.genre_id)}}>Delete</button></td>
             </tr>
         )) : <></>}
       </tbody>

@@ -1,8 +1,9 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 
-function Navigation() {
+function Navigation({ handleReset }) {
   return (
     <>
       <Navbar bg="primary" data-bs-theme="dark">
@@ -15,6 +16,11 @@ function Navigation() {
             <Nav.Link href="/genre-album-details">Genre_Album_Details</Nav.Link>
             <Nav.Link href="/genres">Genres</Nav.Link>
             <Nav.Link href="/inventory">Inventory</Nav.Link>
+          </Nav>
+          <Nav>
+            <Nav.Item className="justify-content-end">
+              <Button onClick={handleReset} variant="warning">Reset Data</Button>
+            </Nav.Item>
           </Nav>
         </Container>
       </Navbar>

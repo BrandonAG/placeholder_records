@@ -8,6 +8,26 @@ function Inventory() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const handleDelete = async (id) => {
+      try {
+        const response = await fetch(crud_address + '/api/inventory/' + id, {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const json = await response.json();
+      } catch (e) {
+        
+      } finally {
+        window.location.reload();
+      }
+    }
   
     useEffect(() => {
       const fetchData = async () => {
@@ -59,7 +79,7 @@ function Inventory() {
             <td>{item.condition_type}</td>
             <td>{item.cost}</td>
             <td>{item.quantity}</td>
-            <td><button>Delete</button></td>
+            <td><button onClick={() => {handleDelete(item.inventory_id)}}>Delete</button></td>
             </tr>
         )) : <></>}
       </tbody>
