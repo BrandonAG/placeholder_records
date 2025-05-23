@@ -2,6 +2,12 @@
     Group 76: Brandon Arnst-GoodRich, Zachary Fox
 */
 
+
+DROP PROCEDURE IF EXISTS load_prdb;
+DELIMITER //
+CREATE PROCEDURE load_prdb()
+BEGIN
+
 /* create or replace all tables */
 CREATE OR REPLACE TABLE Artists (
     artist_id int AUTO_INCREMENT UNIQUE,
@@ -118,3 +124,7 @@ VALUES
 
     ((SELECT album_details_id FROM Album_Details WHERE album_name = 'Undercurrent'),
     'vinyl', 'new', 20.99, 8);
+
+    END // 
+
+    DELIMITER ;
