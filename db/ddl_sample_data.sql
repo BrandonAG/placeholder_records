@@ -8,6 +8,8 @@ DELIMITER //
 CREATE PROCEDURE load_prdb()
 BEGIN
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 /* create or replace all tables */
 CREATE OR REPLACE TABLE Artists (
     artist_id int AUTO_INCREMENT UNIQUE,
@@ -126,5 +128,7 @@ VALUES
     'vinyl', 'new', 20.99, 8);
 
     END // 
+
+    SET FOREIGN_KEY_CHECKS = 1;
 
     DELIMITER ;
