@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Table from 'react-bootstrap/Table';
+import {Table, Button} from 'react-bootstrap';
 import ArtistsForm from "../components/ArtistsForm";
+import UpdateArtistButton from "../components/UpdateArtistButton";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
@@ -71,7 +73,12 @@ function Artists() {
             <tr key={index}>
             <td>{item.artist_id}</td>
             <td>{item.artist_name}</td>
-            <td><button onClick={() => {handleDelete(item.artist_id)}}>Delete</button></td>
+            <td>
+              <UpdateArtistButton artist_id={item.artist_id} artist_name={item.artist_name} />
+              <Button variant="outline-danger" onClick={() => {handleDelete(item.artist_id)}}>
+                <i className="bi bi-trash3-fill"></i>
+              </Button>
+            </td>
             </tr>
         )) : <></>}
       </tbody>

@@ -32,8 +32,20 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-router.get('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
+    try {
+        // update artist
+        const id = req.params.id;
+        const [rows] = await connection.query(`CALL update_artist_by_id(${id}, '${req.body.artist_name}')`);
 
+        // Send back the results in JSON
+        res.status(200).json(rows)
+
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        // Send a generic error message to the browser
+        res.status(500).send("An error occurred while executing the database queries.");
+    }
 });
 
 module.exports = router;

@@ -228,3 +228,21 @@ END;
 //
 
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS update_artist_by_id;
+DELIMITER //
+
+CREATE PROCEDURE update_artist_by_id(
+    IN id INT,
+    IN name VARCHAR(255)
+)
+BEGIN
+    START TRANSACTION;
+    UPDATE Artists
+        SET artist_name = name
+        WHERE artist_id = id;
+    COMMIT;
+END; //
+
+DELIMITER ;
