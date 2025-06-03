@@ -9,14 +9,13 @@ function Inventory() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-        const [genresData, setGenres] = useState([]);
-        const [albumDetailsData, setAlbumDetails] = useState([]);
+    const [albumDetailsData, setAlbumDetails] = useState([]);
     
 const fetchData = async () => {
             try {
                           // inconsistent end slashes in array, problem? 
 
-                    const urlsToFetch = ['/api/genres/', '/api/album-details/', '/api/genre-album-details']
+                    const urlsToFetch = ['/api/inventory/', '/api/album-details/']
 
                 const promises = urlsToFetch.map(url => {return fetch(crud_address + url, {
                     method: 'GET',
@@ -32,11 +31,11 @@ const fetchData = async () => {
                 const fulfilledResponses = await Promise.all( responses.filter(r => r.status === "fulfilled")
                 .map(r =>r.value.json()));
 
-                const [genresData = [], albumDetailsData = [], genreAlbumDetailsData = []] = fulfilledResponses;
+                const [inventoryData = [], albumDetailsData = []] = fulfilledResponses;
                 //const json = await response.json();
-                setGenres(genresData);
+                setData(inventoryData);
                 setAlbumDetails(albumDetailsData);
-                setData(genreAlbumDetailsData);
+                
                 console.log("Data initialized.")
             }
             catch (e) {
@@ -122,7 +121,7 @@ const fetchData = async () => {
         )) : <></>}
       </tbody>
     </Table>
-    <InventoryForm dd_menu_data={data}/>
+    <InventoryForm dd_menu_data={data} albumDetailsData={albumDetailsData} refreshData={fetchData}/>
     </>
   );
 }

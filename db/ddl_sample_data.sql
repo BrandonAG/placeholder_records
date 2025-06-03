@@ -127,8 +127,9 @@ VALUES
     ((SELECT album_details_id FROM Album_Details WHERE album_name = 'Undercurrent'),
     'vinyl', 'new', 20.99, 8);
 
+    SET FOREIGN_KEY_CHECKS = 1;
+
     END // 
 
-    SET FOREIGN_KEY_CHECKS = 1;
 
     DELIMITER ;

@@ -25,10 +25,8 @@ const fetchData = async () => {
                         'Content-Type': 'application/json'
                     },
                 })})
-                let responses;
-            
-                        responses = await Promise.allSettled(promises);
-                
+                let responses;       
+                        responses = await Promise.allSettled(promises);   
                 const fulfilledResponses = await Promise.all( responses.filter(r => r.status === "fulfilled")
                 .map(r =>r.value.json()));
 

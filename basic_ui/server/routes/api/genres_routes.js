@@ -36,4 +36,20 @@ router.get('/:id', (req, res) => {
 
 });
 
+router.post('/', async (req, res) => {
+   try {
+        const genre_name = req.body.genre_name;
+
+        const [rows] = await connection.query(`CALL insert_genre(?)`, [genre_name]);
+
+        // Send back the results in JSON
+        res.status(200).json(rows[0])
+
+    } catch (error) {
+        console.error("Error executing query:", error);
+        // Send a generic error message to the browser
+        res.status(500).send("An error occurred while executing the database query.");
+    }
+});
+
 module.exports = router;
