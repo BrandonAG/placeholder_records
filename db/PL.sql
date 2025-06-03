@@ -223,26 +223,21 @@ DELIMITER //
 
 CREATE PROCEDURE insert_genre_album_details(IN genre_id_input INT, album_details_id_input INT)
 BEGIN
-    INSERT INTO Genre_Album_Details(genre_id, album_details_id) VALUES (genre_id_input, album_details_id_input );
+    INSERT INTO Genre_Album_Details(genre_id, album_details_id) VALUES (genre_id_input, album_details_id_input);
 END;
 //
 
 DELIMITER ;
 
 
-DROP PROCEDURE IF EXISTS update_artist_by_id;
+DROP PROCEDURE IF EXISTS insert_inventory;
 DELIMITER //
 
-CREATE PROCEDURE update_artist_by_id(
-    IN id INT,
-    IN name VARCHAR(255)
-)
+CREATE PROCEDURE insert_inventory (IN album_details_id_input INT, media_type_input INT, condition_type_input INT, cost_input FLOAT, quantity_input INT)
+
 BEGIN
-    START TRANSACTION;
-    UPDATE Artists
-        SET artist_name = name
-        WHERE artist_id = id;
-    COMMIT;
-END; //
+    INSERT INTO Inventory(album_details_id, media_type, condition_type, cost, quantity) VALUES (album_details_id_input, media_type_input, condition_type_input, cost_input, quantity_input);
+END;
+//
 
 DELIMITER ;
