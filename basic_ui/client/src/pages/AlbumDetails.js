@@ -29,8 +29,7 @@ function AlbumDetails() {
       }
     }
   
-    useEffect(() => {
-      const fetchData = async () => {
+ const fetchData = async () => {
         try {
           const response = await fetch(crud_address + '/api/album-details', {
             method: 'GET',
@@ -52,7 +51,8 @@ function AlbumDetails() {
           setLoading(false);
         }
       };
-  
+
+    useEffect(() => {   
       fetchData();
     }, []);
 
@@ -68,7 +68,8 @@ function AlbumDetails() {
       </thead>
       <tbody>
         {data !== null ? data.map((item, index) => (
-            <tr>
+            
+            <tr key={index}>
             <td>{item.album_details_id}</td>
             <td>{item.album_name}</td>
             <td><button onClick={() => {handleDelete(item.album_details_id)}}>Delete</button></td>
@@ -76,7 +77,7 @@ function AlbumDetails() {
         )) : <></>}
       </tbody>
     </Table>
-    <AlbumDetailsForm />
+    <AlbumDetailsForm dd_menu_data={data} refreshData={fetchData}/>
     </>
   );
 }

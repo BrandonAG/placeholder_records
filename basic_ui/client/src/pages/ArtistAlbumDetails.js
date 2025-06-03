@@ -9,6 +9,47 @@ function ArtistAlbumDetails() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [artistsData, setArtists] = useState([]);
+    const [albumDetailsData, setAlbumDetails] = useState([]);
+    
+
+
+
+     const fetchData = async () => {
+            try {
+                          // inconsistent end slashes in array, problem? 
+
+                    const urlsToFetch = ['/api/artists/', '/api/album-details/', '/api/artist-album-details']
+
+                const promises = urlsToFetch.map(url => {return fetch(crud_address + url, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })})
+                let responses;
+            
+                        responses = await Promise.allSettled(promises);
+                
+                const fulfilledResponses = await Promise.all( responses.filter(r => r.status === "fulfilled")
+                .map(r =>r.value.json()));
+
+                const [artistsData = [], albumDetailsData = [], artistAlbumDetailsData = []] = fulfilledResponses;
+                //const json = await response.json();
+                setArtists(artistsData);
+                setAlbumDetails(albumDetailsData);
+                setData(artistAlbumDetailsData);
+                console.log("Data initialized.")
+            }
+            catch (e) {
+                setError(e);
+            }
+            finally {
+                setLoading(false);
+            }
+        };
+    
     const handleDelete = async (artist_id, album_id) => {
       try {
         const response = await fetch(crud_address + '/api/artist-album-details', {
@@ -33,7 +74,7 @@ function ArtistAlbumDetails() {
       }
     }
   
-    useEffect(() => {
+    useEffect(() => {/*
       const fetchData = async () => {
         try {
           const response = await fetch(crud_address + '/api/artist-album-details', {
@@ -56,7 +97,7 @@ function ArtistAlbumDetails() {
           setLoading(false);
         }
       };
-  
+  */
       fetchData();
     }, []);
 
@@ -72,7 +113,7 @@ function ArtistAlbumDetails() {
       </thead>
       <tbody>
         {data !== null ? data.map((item, index) => (
-            <tr>
+            <tr key={index}>
             <td>{item.artist_name}</td>
             <td>{item.album_name}</td>
             <td><button onClick={() => {handleDelete(item.artist_id, item.album_details_id)}}>Delete</button></td>
@@ -80,7 +121,7 @@ function ArtistAlbumDetails() {
         )) : <></>}
       </tbody>
     </Table>
-    <ArtistAlbumDetailsForm />
+    <ArtistAlbumDetailsForm artistsData={artistsData} albumDetailsData={albumDetailsData} refreshData={fetchData}/>
     </>
   );
 }

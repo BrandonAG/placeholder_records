@@ -9,6 +9,44 @@ function GenreAlbumDetails() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [genresData, setGenres] = useState([]);
+    const [albumDetailsData, setAlbumDetails] = useState([]);
+
+const fetchData = async () => {
+            try {
+                          // inconsistent end slashes in array, problem? 
+
+                    const urlsToFetch = ['/api/genres/', '/api/album-details/', '/api/genre-album-details']
+
+                const promises = urlsToFetch.map(url => {return fetch(crud_address + url, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })})
+                let responses;
+            
+                        responses = await Promise.allSettled(promises);
+                
+                const fulfilledResponses = await Promise.all( responses.filter(r => r.status === "fulfilled")
+                .map(r =>r.value.json()));
+
+                const [genresData = [], albumDetailsData = [], genreAlbumDetailsData = []] = fulfilledResponses;
+                //const json = await response.json();
+                setGenres(genresData);
+                setAlbumDetails(albumDetailsData);
+                setData(genreAlbumDetailsData);
+                console.log("Data initialized.")
+            }
+            catch (e) {
+                setError(e);
+            }
+            finally {
+                setLoading(false);
+            }
+        };
+
     const handleDelete = async (genre_id, album_id) => {
       try {
         const response = await fetch(crud_address + '/api/genre-album-details', {
@@ -33,7 +71,7 @@ function GenreAlbumDetails() {
       }
     }
   
-    useEffect(() => {
+    useEffect(() => {/*
       const fetchData = async () => {
         try {
           const response = await fetch(crud_address + '/api/genre-album-details', {
@@ -55,7 +93,7 @@ function GenreAlbumDetails() {
         } finally {
           setLoading(false);
         }
-      };
+      };*/
   
       fetchData();
     }, []);
@@ -72,7 +110,7 @@ function GenreAlbumDetails() {
       </thead>
       <tbody>
         {data !== null ? data.map((item, index) => (
-            <tr>
+            <tr key={index}>
             <td>{item.genre_name}</td>
             <td>{item.album_name}</td>
             <td><button onClick={() => {handleDelete(item.genre_id, item.album_details_id)}}>Delete</button></td>
@@ -80,7 +118,7 @@ function GenreAlbumDetails() {
         )) : <></>}
       </tbody>
     </Table>
-    <GenreAlbumDetailsForm />
+    <GenreAlbumDetailsForm genresData={genresData} albumDetailsData={albumDetailsData} refreshData={fetchData}/>
     </>
   );
 }

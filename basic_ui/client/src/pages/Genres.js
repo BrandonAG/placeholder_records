@@ -29,8 +29,7 @@ function Genres() {
       }
     }
   
-    useEffect(() => {
-      const fetchData = async () => {
+const fetchData = async () => {
         try {
           const response = await fetch(crud_address + '/api/genres', {
             method: 'GET',
@@ -52,7 +51,8 @@ function Genres() {
           setLoading(false);
         }
       };
-  
+
+    useEffect(() => {
       fetchData();
     }, []);
 
@@ -68,7 +68,7 @@ function Genres() {
       </thead>
       <tbody>
         {data !== null ? data.map((item, index) => (
-            <tr>
+            <tr key={index}>
             <td>{item.genre_id}</td>
             <td>{item.genre_name}</td>
             <td><button onClick={() => {handleDelete(item.genre_id)}}>Delete</button></td>
@@ -76,7 +76,7 @@ function Genres() {
         )) : <></>}
       </tbody>
     </Table>
-    <GenresForm />
+    <GenresForm dd_menu_data={data} refreshData={fetchData}/>
     </>
   );
 }

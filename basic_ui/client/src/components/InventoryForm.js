@@ -1,4 +1,4 @@
-function InventoryForm() {
+function InventoryForm({dd_menu_data}) {
     return (
         <>
             <form>
@@ -27,16 +27,16 @@ function InventoryForm() {
             <form>
                 <label>Update Inventory</label>
                 <select id="inventory" name="inventory">
-                    <option value="select">Select an Inventory Item</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    <option value="" disabled /*selected*/>Select Inventory to Update</option>
+                        {dd_menu_data !== null ? dd_menu_data.map((item, index) => (
+                            <option key={item.inventory_id} value={item.inventory_id}>ID: {item.inventory_id}, {item.album_name}, {item.media_type}, {item.condition_type}</option>
+                        )) : <></>}
                 </select>
                 <select id="album-details" name="album-details">
-                    <option value="select">Replace Album With</option>
-                    <option value="1">Album 1</option>
-                    <option value="2">Album 2</option>
-                    <option value="3">Album 3</option>
+                    <option value="" disabled /*selected*/>Change Album</option>
+                        {dd_menu_data !== null ? dd_menu_data.map((item, index) => (
+                            <option key={item.index} value={item.album_name}>{item.album_name}</option>
+                        )) : <></>}
                 </select>
                 <select id="media-type" name="media-type">
                     <option value="select">Change Media Type</option>

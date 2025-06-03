@@ -28,8 +28,7 @@ function Artists() {
         window.location.reload();
       }
     }
-  
-    useEffect(() => {
+
       const fetchData = async () => {
         try {
           const response = await fetch(crud_address + '/api/artists', {
@@ -53,6 +52,7 @@ function Artists() {
         }
       };
   
+    useEffect(() => {
       fetchData();
     }, []);
 
@@ -68,7 +68,7 @@ function Artists() {
       </thead>
       <tbody>
         {data !== null ? data.map((item, index) => (
-            <tr>
+            <tr key={index}>
             <td>{item.artist_id}</td>
             <td>{item.artist_name}</td>
             <td><button onClick={() => {handleDelete(item.artist_id)}}>Delete</button></td>
@@ -76,7 +76,7 @@ function Artists() {
         )) : <></>}
       </tbody>
     </Table>
-    <ArtistsForm />
+    <ArtistsForm dd_menu_data={data} refreshData={fetchData} />
     </>
   );
 }
