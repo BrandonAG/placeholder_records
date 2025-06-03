@@ -166,3 +166,65 @@ BEGIN
 END; //
 
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS insert_artist;
+DELIMITER //
+
+CREATE PROCEDURE insert_artist(IN artist_name_input VARCHAR(255))
+BEGIN
+    INSERT INTO Artists (artist_name) VALUES (artist_name_input);
+END;
+//
+
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS insert_genre;
+DELIMITER //
+
+CREATE PROCEDURE insert_genre(IN genre_name_input VARCHAR(255))
+BEGIN
+    INSERT INTO Genres(genre_name) VALUES (genre_name_input);
+END;
+//
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS insert_album_details;
+DELIMITER //
+
+CREATE PROCEDURE insert_album_details(IN album_name_input VARCHAR(255))
+BEGIN
+    INSERT INTO Album_Details(album_name) VALUES (album_name_input);
+END;
+//
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS insert_artist_album_details;
+DELIMITER //
+
+CREATE PROCEDURE insert_artist_album_details(IN artist_id_input INT, album_details_id_input INT)
+BEGIN
+    INSERT INTO Artist_Album_Details(artist_id, album_details_id) VALUES (artist_id_input, album_details_id_input );
+END;
+//
+
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS insert_genre_album_details;
+DELIMITER //
+
+CREATE PROCEDURE insert_genre_album_details(IN genre_id_input INT, album_details_id_input INT)
+BEGIN
+    INSERT INTO Genre_Album_Details(genre_id, album_details_id) VALUES (genre_id_input, album_details_id_input );
+END;
+//
+
+DELIMITER ;
