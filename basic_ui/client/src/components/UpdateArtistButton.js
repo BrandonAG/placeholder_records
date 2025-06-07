@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Form, Button, Alert, Modal} from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
+const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
+
 function UpdateArtistButton({ artist_id, artist_name }) {
     const [userFormData, setUserFormData] = useState({ artistName: artist_name });
     const [show, setShow] = useState(false);
@@ -27,7 +29,7 @@ function UpdateArtistButton({ artist_id, artist_name }) {
         setShow(false);
     
         try {
-            fetch('http://localhost:3001/api/artists/' + artist_id, {
+            fetch(crud_address + '/api/artists/' + artist_id, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
