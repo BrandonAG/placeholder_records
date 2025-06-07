@@ -241,3 +241,123 @@ END;
 //
 
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS update_album_details_by_id;
+DELIMITER //
+
+CREATE PROCEDURE update_album_details_by_id(
+    IN id INT,
+    IN name VARCHAR(255)
+)
+BEGIN
+    START TRANSACTION;
+    UPDATE Album_Details
+        SET album_name = name
+        WHERE album_details_id = id;
+    COMMIT;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS update_artist_album_details;
+DELIMITER //
+
+CREATE PROCEDURE update_artist_album_details(
+    IN artist_id_in INT,
+    IN album_id_in INT,
+    IN new_artist_id INT,
+    IN new_album_id INT
+)
+BEGIN
+    START TRANSACTION;
+    UPDATE Artist_Album_Details
+        SET artist_id = new_artist_id, album_details_id = new_album_id
+        WHERE artist_id = artist_id_in AND album_details_id = new_album_id;
+    COMMIT;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS update_artist_by_id;
+DELIMITER //
+
+CREATE PROCEDURE update_artist_by_id(
+    IN id INT,
+    IN name VARCHAR(255)
+)
+BEGIN
+    START TRANSACTION;
+    UPDATE Artists
+        SET artist_name = name
+        WHERE artist_id = id;
+    COMMIT;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS update_genre_album_details;
+DELIMITER //
+
+CREATE PROCEDURE update_genre_album_details(
+    IN genre_id_in INT,
+    IN album_id_in INT,
+    IN new_genre_id INT,
+    IN new_album_id INT
+)
+BEGIN
+    START TRANSACTION;
+    UPDATE Genre_Album_Details
+        SET genre_id = new_genre_id, album_details_id = new_album_id
+        WHERE genre_id = genre_id_in AND album_details_id = new_album_id;
+    COMMIT;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS update_genre_by_id;
+DELIMITER //
+
+CREATE PROCEDURE update_genre_by_id(
+    IN id INT,
+    IN name VARCHAR(255)
+)
+BEGIN
+    START TRANSACTION;
+    UPDATE Genres
+        SET genre_name = name
+        WHERE genre_id = id;
+    COMMIT;
+END; //
+
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS update_inventory_by_id;
+DELIMITER //
+
+CREATE PROCEDURE update_inventory_by_id(
+    IN id INT,
+    IN album_id_in INT,
+    media_type_in enum('vinyl','cassette'),
+    condition_in enum('new','used'),
+    cost_in decimal(10,0),
+    quantity_in INT
+)
+BEGIN
+    START TRANSACTION;
+    UPDATE Inventory
+        SET album_details_id = album_id_in,
+        media_type = media_type_in,
+        condition_type = condition_in,
+        cost = cost_in,
+        quantity = quantity_in
+        WHERE inventory_id = id;
+    COMMIT;
+END; //
+
+DELIMITER ;
