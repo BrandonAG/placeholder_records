@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Table, Button} from 'react-bootstrap';
-import ArtistsForm from "../components/ArtistsForm";
+import AddArtistButton from "../components/AddArtistButton";
 import UpdateArtistButton from "../components/UpdateArtistButton";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -27,32 +27,30 @@ function Artists() {
       } catch (e) {
         
       } finally {
-        window.location.reload();
+        fetchData();
       }
     }
 
-      const fetchData = async () => {
-        try {
-          const response = await fetch(crud_address + '/api/artists', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-          });
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const json = await response.json();
-          setData(json);
-          console.log("DATA");
-          console.log(data);
-        } catch (e) {
-          setError(e);
-        } finally {
-          setLoading(false);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(crud_address + '/api/artists', {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      };
+        const json = await response.json();
+        setData(json);
+      } catch (e) {
+        setError(e);
+      } finally {
+        setLoading(false);
+      }
+    };
   
     useEffect(() => {
       fetchData();
@@ -60,7 +58,10 @@ function Artists() {
 
   return (
     <>
-      <h1>Artists</h1>
+      <h1 className="lead display-6 m-0 mt-2">Artists</h1>
+      <div className="p-3">
+        <AddArtistButton refreshData={fetchData} />
+      </div>
       <Table striped bordered hover>
       <thead>
         <tr>
@@ -70,7 +71,7 @@ function Artists() {
       </thead>
       <tbody>
         {data !== null ? data.map((item, index) => (
-            <tr key={index}>
+          <tr className="align-middle" key={index}>
             <td>{item.artist_id}</td>
             <td>{item.artist_name}</td>
             <td>
@@ -79,11 +80,10 @@ function Artists() {
                 <i className="bi bi-trash3-fill"></i>
               </Button>
             </td>
-            </tr>
+          </tr>
         )) : <></>}
       </tbody>
     </Table>
-    <ArtistsForm dd_menu_data={data} refreshData={fetchData} />
     </>
   );
 }
