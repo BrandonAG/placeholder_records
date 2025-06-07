@@ -4,8 +4,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function AddArtistButton({ refreshData }) {
-    const [userFormData, setUserFormData] = useState({ artistName: '' });
+function UpdateAlbumButton({ album_details_id, album_name, refreshData}) {
+    const [userFormData, setUserFormData] = useState({ albumName: album_name });
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -29,19 +29,18 @@ function AddArtistButton({ refreshData }) {
         setShow(false);
     
         try {
-            fetch(crud_address + '/api/artists/', {
-                method: 'POST',
+            fetch(crud_address + '/api/album-details/' + album_details_id, {
+                method: 'PUT',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    artist_name: userFormData.artistName,
+                    album_name: userFormData.albumName,
                 }),
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then((result) => {
-                console.log(result);
                 refreshData();
             });
         } catch (err) {
@@ -49,39 +48,39 @@ function AddArtistButton({ refreshData }) {
         }
     
         setUserFormData({
-            artistName: '',
+            albumName: '',
         });
       };
 
     return (
         <>
-            <Button variant="outline-primary" onClick={handleShow}>
-                Add Artist
+            <Button variant="outline-primary me-2" onClick={handleShow}>
+                <i className="bi bi-pencil-fill"></i>
             </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Add Artist</Modal.Title>
+                <Modal.Title>Edit Album Detsils</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
-                            <Form.Label htmlFor='artistName'>Artist Name</Form.Label>
+                            <Form.Label htmlFor='albumName'>Album Name</Form.Label>
                             <Form.Control
                             type='text'
-                            placeholder='Artist Name'
-                            name='artistName'
+                            placeholder={album_name}
+                            name='albumName'
                             onChange={handleInputChange}
-                            value={userFormData.artistName}
+                            value={userFormData.albumName}
                             required
                             />
-                            <Form.Control.Feedback type='invalid'>Artist name is required!</Form.Control.Feedback>
+                            <Form.Control.Feedback type='invalid'>Album name is required!</Form.Control.Feedback>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="primary" onClick={handleSubmit}>
-                    Add
+                    Update
                 </Button>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
@@ -92,4 +91,4 @@ function AddArtistButton({ refreshData }) {
     )
 }
 
-export default AddArtistButton;
+export default UpdateAlbumButton;

@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function UpdateArtistButton({ artist_id, artist_name }) {
+function UpdateArtistButton({ artist_id, artist_name, refreshData }) {
     const [userFormData, setUserFormData] = useState({ artistName: artist_name });
     const [show, setShow] = useState(false);
 
@@ -39,13 +39,9 @@ function UpdateArtistButton({ artist_id, artist_name }) {
                     artist_name: userFormData.artistName,
                 }),
             })
-            .then((response) => {
-                response.json()
-                console.log('test');
-            })
+            .then(response => response.json())
             .then((result) => {
-                console.log(result);
-                window.location.reload();
+                refreshData();
             });
         } catch (err) {
           console.error(err);

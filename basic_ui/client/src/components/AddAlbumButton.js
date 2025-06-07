@@ -4,8 +4,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function AddArtistButton({ refreshData }) {
-    const [userFormData, setUserFormData] = useState({ artistName: '' });
+function AddAlbumButton({ refreshData }) {
+    const [userFormData, setUserFormData] = useState({ albumName: '' });
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -29,14 +29,14 @@ function AddArtistButton({ refreshData }) {
         setShow(false);
     
         try {
-            fetch(crud_address + '/api/artists/', {
+            fetch(crud_address + '/api/album-details/', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    artist_name: userFormData.artistName,
+                    album_name: userFormData.albumName,
                 }),
             })
             .then(response => response.text())
@@ -49,33 +49,33 @@ function AddArtistButton({ refreshData }) {
         }
     
         setUserFormData({
-            artistName: '',
+            albumName: '',
         });
       };
 
     return (
         <>
             <Button variant="outline-primary" onClick={handleShow}>
-                Add Artist
+                Add Album
             </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Add Artist</Modal.Title>
+                <Modal.Title>Add Album</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
-                            <Form.Label htmlFor='artistName'>Artist Name</Form.Label>
+                            <Form.Label htmlFor='albumName'>Album Name</Form.Label>
                             <Form.Control
                             type='text'
-                            placeholder='Artist Name'
-                            name='artistName'
+                            placeholder='Album Name'
+                            name='albumName'
                             onChange={handleInputChange}
-                            value={userFormData.artistName}
+                            value={userFormData.albumName}
                             required
                             />
-                            <Form.Control.Feedback type='invalid'>Artist name is required!</Form.Control.Feedback>
+                            <Form.Control.Feedback type='invalid'>Album name is required!</Form.Control.Feedback>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -92,4 +92,4 @@ function AddArtistButton({ refreshData }) {
     )
 }
 
-export default AddArtistButton;
+export default AddAlbumButton;

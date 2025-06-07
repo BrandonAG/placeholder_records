@@ -55,7 +55,6 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    console.log("GET by ID")
     const id = req.params.id;
     const albumDetails = await getByID(id);
     if (albumDetails.length() > 0) {
@@ -67,32 +66,20 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    console.log ("PUT params: ", req.params);
     const id = req.params.id;
-    const requestBody = req.body;
 
-    //const albumDetails = await getByID(id);
+    try {
+        const album_name = req.body.album_name;
 
-    if (isVarchar(requestBody.album_name)) {
-        if (await getByID(id)) {
-            const result = await updateInstance(id, requestBody);
+        const [rows] = await connection.query(`CALL update_album_details_by_id(${id}, '${album_name}')`);
 
-            if (result){
-                const updatedAlbumDetails = await model.getByID(id);
-                res.status(200).send(updatedAlbumDetails);
-            }
-            
-            else {
-                res.status(500).send({"Error": "Internal server error"});
-            }
-        }
-        else {
-            res.status(404).send({"Error": "Not found"});
-        }
+        // Send back the results in JSON
+        res.status(200).json(rows)
 
-    }
-    else {
-        res.status(400).send({"Error": "Invalid Request - album_name must be VARCHAR(255)"})   ;
+    } catch (error) {
+        console.error("Error executing query:", error);
+        // Send a generic error message to the browser
+        res.status(500).send("An error occurred while executing the database query.");
     }
 })
 

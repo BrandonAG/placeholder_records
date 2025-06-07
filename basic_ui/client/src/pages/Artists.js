@@ -75,7 +75,7 @@ function Artists() {
             <td>{item.artist_id}</td>
             <td>{item.artist_name}</td>
             <td>
-              <UpdateArtistButton artist_id={item.artist_id} artist_name={item.artist_name} />
+              <UpdateArtistButton artist_id={item.artist_id} artist_name={item.artist_name} refreshData={fetchData} />
               <Button variant="outline-danger" onClick={() => {handleDelete(item.artist_id)}}>
                 <i className="bi bi-trash3-fill"></i>
               </Button>
