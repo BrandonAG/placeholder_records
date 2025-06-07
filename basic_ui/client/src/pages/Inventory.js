@@ -4,7 +4,7 @@ import InventoryForm from "../components/InventoryForm";
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function Inventory() {
+function Inventory({ reset }) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -91,7 +91,7 @@ const fetchData = async () => {
       };*/
   
       fetchData();
-    }, []);
+    }, [reset]);
 
   return (
     <>

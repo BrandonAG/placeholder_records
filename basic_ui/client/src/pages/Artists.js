@@ -6,7 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function Artists() {
+function Artists({ reset }) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -53,8 +53,9 @@ function Artists() {
     };
   
     useEffect(() => {
+      console.log(reset);
       fetchData();
-    }, []);
+    }, [reset]);
 
   return (
     <>

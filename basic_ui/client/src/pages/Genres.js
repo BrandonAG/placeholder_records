@@ -4,7 +4,7 @@ import GenresForm from "../components/GenresForm";
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function Genres() {
+function Genres({ reset }) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -54,7 +54,7 @@ const fetchData = async () => {
 
     useEffect(() => {
       fetchData();
-    }, []);
+    }, [reset]);
 
   return (
     <>

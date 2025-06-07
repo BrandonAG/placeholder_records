@@ -4,7 +4,7 @@ import GenreAlbumDetailsForm from "../components/GenreAlbumDetailsForm";
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function GenreAlbumDetails() {
+function GenreAlbumDetails({ reset }) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -94,7 +94,7 @@ const fetchData = async () => {
       };*/
   
       fetchData();
-    }, []);
+    }, [reset]);
 
   return (
     <>
