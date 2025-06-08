@@ -274,7 +274,7 @@ BEGIN
     START TRANSACTION;
     UPDATE Artist_Album_Details
         SET artist_id = new_artist_id, album_details_id = new_album_id
-        WHERE artist_id = artist_id_in AND album_details_id = new_album_id;
+        WHERE artist_id = artist_id_in AND album_details_id = album_id_in;
     COMMIT;
 END; //
 
@@ -312,7 +312,7 @@ BEGIN
     START TRANSACTION;
     UPDATE Genre_Album_Details
         SET genre_id = new_genre_id, album_details_id = new_album_id
-        WHERE genre_id = genre_id_in AND album_details_id = new_album_id;
+        WHERE genre_id = genre_id_in AND album_details_id = album_id_in;
     COMMIT;
 END; //
 

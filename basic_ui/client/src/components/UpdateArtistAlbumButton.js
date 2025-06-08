@@ -81,7 +81,7 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
           new_album_details_id: userFormData.albumID
         }),
       })
-        .then(response => response.json())
+        .then(response => response.text())
         .then((result) => {
           refreshData();
         });
@@ -89,10 +89,6 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
       console.error(err);
     }
 
-    setUserFormData({
-      artistID: null,
-      albumID: null
-    });
   };
 
   return (

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button } from 'react-bootstrap';
-import ArtistAlbumDetailsForm from "../components/ArtistAlbumDetailsForm";
 import AddArtistAlbumButton from "../components/AddArtistAlbumButton";
-import UpdateArtistAlbumButton from "../components/UpdateArtistButton copy";
+import UpdateArtistAlbumButton from "../components/UpdateArtistAlbumButton";
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
