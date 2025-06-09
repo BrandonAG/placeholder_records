@@ -54,7 +54,7 @@ function UpdateAlbumButton({ album_details_id, album_name, refreshData }) {
 
   return (
     <>
-      <Button variant="outline-primary me-2" onClick={handleShow}>
+      <Button variant="outline-primary" onClick={handleShow}>
         <i className="bi bi-pencil-fill"></i>
       </Button>
 

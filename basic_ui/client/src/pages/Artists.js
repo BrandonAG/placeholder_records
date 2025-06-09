@@ -53,7 +53,6 @@ function Artists({ reset }) {
     };
   
     useEffect(() => {
-      console.log(reset);
       fetchData();
     }, [reset]);
 
@@ -76,10 +75,12 @@ function Artists({ reset }) {
             <td>{item.artist_id}</td>
             <td>{item.artist_name}</td>
             <td>
-              <UpdateArtistButton artist_id={item.artist_id} artist_name={item.artist_name} refreshData={fetchData} />
-              <Button variant="outline-danger" onClick={() => {handleDelete(item.artist_id)}}>
-                <i className="bi bi-trash3-fill"></i>
-              </Button>
+              <div className="d-flex flex-wrap justify-content-center gap-2">
+                <UpdateArtistButton artist_id={item.artist_id} artist_name={item.artist_name} refreshData={fetchData} />
+                <Button variant="outline-danger" onClick={() => {handleDelete(item.artist_id)}}>
+                  <i className="bi bi-trash3-fill"></i>
+                </Button>
+              </div>
             </td>
           </tr>
         )) : <></>}

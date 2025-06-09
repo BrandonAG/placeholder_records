@@ -66,6 +66,8 @@ function AlbumDetails({ reset }) {
           <tr>
             <th>album_details_id</th>
             <th>album_name</th>
+            <th>artist_name</th>
+            <th>genre_name</th>
           </tr>
         </thead>
         <tbody>
@@ -73,11 +75,15 @@ function AlbumDetails({ reset }) {
             <tr className="align-middle" key={index}>
               <td>{item.album_details_id}</td>
               <td>{item.album_name}</td>
+              <td>{item.artist_name}</td>
+              <td>{item.genre_name}</td>
               <td>
-                <UpdateAlbumButton album_details_id={item.album_details_id} album_name={item.album_name} refreshData={fetchData} />
-                <Button variant="outline-danger" onClick={() => { handleDelete(item.album_details_id) }}>
-                  <i className="bi bi-trash3-fill"></i>
-                </Button>
+                <div className="d-flex flex-wrap justify-content-center gap-2">
+                  <UpdateAlbumButton album_details_id={item.album_details_id} album_name={item.album_name} refreshData={fetchData} />
+                  <Button variant="outline-danger" onClick={() => { handleDelete(item.album_details_id) }}>
+                    <i className="bi bi-trash3-fill"></i>
+                  </Button>
+                </div>
               </td>
             </tr>
           )) : <></>}

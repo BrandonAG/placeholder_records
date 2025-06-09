@@ -91,10 +91,12 @@ function ArtistAlbumDetails({ reset }) {
               <td>{item.artist_name}</td>
               <td>{item.album_name}</td>
               <td>
-                <UpdateArtistAlbumButton artist_id={item.artist_id} album_details_id={item.album_details_id} refreshData={fetchData} />
-                <Button variant="outline-danger" onClick={() => { handleDelete(item.artist_id, item.album_details_id) }}>
-                  <i className="bi bi-trash3-fill"></i>
-                </Button>
+                <div className="d-flex flex-wrap justify-content-center gap-2">
+                  <UpdateArtistAlbumButton artist_id={item.artist_id} album_details_id={item.album_details_id} refreshData={fetchData} />
+                  <Button variant="outline-danger" onClick={() => { handleDelete(item.artist_id, item.album_details_id) }}>
+                    <i className="bi bi-trash3-fill"></i>
+                  </Button>
+                </div>
               </td>
             </tr>
           )) : <></>}

@@ -99,7 +99,20 @@ DELIMITER //
 
 CREATE PROCEDURE select_all_album_details()
 BEGIN
-    SELECT album_details_id, album_name FROM Album_Details;
+    SELECT albums.album_details_id,
+        albums.album_name,
+        GROUP_CONCAT(DISTINCT Artists.artist_name SEPARATOR ', ') AS artist_name,
+        GROUP_CONCAT(DISTINCT Genres.genre_name SEPARATOR ', ') AS genre_name
+        FROM Album_Details AS albums
+    LEFT JOIN Artist_Album_Details AS aa
+        ON albums.album_details_id = aa.album_details_id
+    LEFT JOIN Artists
+        ON aa.artist_id = Artists.artist_id
+    LEFT JOIN Genre_Album_Details AS ga
+        ON albums.album_details_id = ga.album_details_id
+    LEFT JOIN Genres
+        ON ga.genre_id = Genres.genre_id
+    GROUP BY albums.album_details_id;
 END; //
 
 DELIMITER ;
