@@ -100,7 +100,7 @@ function Inventory({ reset }) {
               <td>{item.quantity}</td>
               <td>
                 <div className="d-flex flex-wrap justify-content-center gap-2">
-                  <UpdateInventoryButton album_details_id={item.album_details_id} media_id={item.media_type} condition_id={item.condition_type} cost={item.cost} quantity={item.quantity} refreshData={fetchData} />
+                  <UpdateInventoryButton inventory_id={item.inventory_id} album_details_id={item.album_details_id} media_id={item.media_type} condition_id={item.condition_type} cost={item.cost} quantity={item.quantity} refreshData={fetchData} />
                   <Button variant="outline-danger" onClick={() => {handleDelete(item.inventory_id)}}>
                     <i className="bi bi-trash3-fill"></i>
                   </Button>

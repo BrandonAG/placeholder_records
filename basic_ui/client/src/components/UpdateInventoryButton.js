@@ -4,13 +4,16 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function UpdateInventoryButton({ album_details_id, media_id, condition_id, cost, quantity, refreshData }) {
+function UpdateInventoryButton({ inventory_id, album_details_id, media_id, condition_id, cost, quantity, refreshData }) {
   const [userFormData, setUserFormData] = useState({ albumID: album_details_id, mediaID: media_id, conditionID: condition_id, cost: cost, quantity: quantity });
   const [show, setShow] = useState(false);
   const [albumDetailsData, setAlbumDetails] = useState([]);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    fetchData();
+    setShow(true);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -51,12 +54,13 @@ function UpdateInventoryButton({ album_details_id, media_id, condition_id, cost,
   
     useEffect(() => {
       console.log(userFormData);
-      fetchData();
+      // fetchData();
     }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(crud_address + '/api/inventory/' + album_details_id, {
+    setShow(false);
+    await fetch(crud_address + '/api/inventory/' + inventory_id, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -67,13 +71,7 @@ function UpdateInventoryButton({ album_details_id, media_id, condition_id, cost,
         quantity: parseInt(userFormData.quantity)
       }),
     });
-    setUserFormData({
-      albumID: null,
-      mediaID: 1,
-      conditionID: 1,
-      cost: 0,
-      quantity: 0
-    });
+    
     refreshData();
 
   };
@@ -101,15 +99,15 @@ function UpdateInventoryButton({ album_details_id, media_id, condition_id, cost,
             <Form.Group>
               <Form.Label htmlFor='mediaID'>Select Media Type</Form.Label>
               <Form.Select name='mediaID' value={userFormData.mediaID} onChange={handleInputChange}>
-                <option value="1">vinyl</option>
-                <option value="2">cassette</option>
+                <option value="vinyl">vinyl</option>
+                <option value="cassette">cassette</option>
               </Form.Select>
             </Form.Group>
             <Form.Group>
               <Form.Label htmlFor='conditionID'>Select Condition</Form.Label>
               <Form.Select name='conditionID' value={userFormData.conditionID} onChange={handleInputChange}>
-                <option value="1">new</option>
-                <option value="2">used</option>
+                <option value="new">new</option>
+                <option value="used">used</option>
               </Form.Select>
             </Form.Group>
             <Form.Group>
@@ -126,17 +124,17 @@ function UpdateInventoryButton({ album_details_id, media_id, condition_id, cost,
               <Form.Control.Feedback type='invalid'>Cost is required!</Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor='cost'>Enter Quantity</Form.Label>
+              <Form.Label htmlFor='quantity'>Enter Quantity</Form.Label>
               <Form.Control
                 type='number'
                 min="0"
                 placeholder='Quantity'
-                name='quanity'
+                name='quantity'
                 onChange={handleInputChange}
-                value={userFormData.quanity}
+                value={userFormData.quantity}
                 required
               />
-              <Form.Control.Feedback type='invalid'>Quanity is required!</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Quantity is required!</Form.Control.Feedback>
             </Form.Group>
           </Form>
         </Modal.Body>

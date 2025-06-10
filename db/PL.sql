@@ -264,7 +264,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insert_inventory;
 DELIMITER //
 
-CREATE PROCEDURE insert_inventory (IN album_details_id_input INT, media_type_input INT, condition_type_input INT, cost_input DECIMAL(10,2), quantity_input INT)
+CREATE PROCEDURE insert_inventory (IN album_details_id_input INT, media_type_input enum('vinyl','cassette'), condition_type_input enum('new','used'), cost_input DECIMAL(10,2), quantity_input INT)
 
 BEGIN
     INSERT INTO Inventory(album_details_id, media_type, condition_type, cost, quantity) VALUES (album_details_id_input, media_type_input, condition_type_input, cost_input, quantity_input);

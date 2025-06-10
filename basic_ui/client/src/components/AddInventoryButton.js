@@ -10,7 +10,10 @@ function AddInventoryButton({ refreshData }) {
   const [albumDetailsData, setAlbumDetails] = useState([]);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    fetchData();
+    setShow(true);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -55,11 +58,13 @@ function AddInventoryButton({ refreshData }) {
   };
 
   useEffect(() => {
-    fetchData();
+    
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setShow(false);
     await fetch(crud_address + '/api/inventory/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -71,13 +76,7 @@ function AddInventoryButton({ refreshData }) {
         quantity: parseInt(userFormData.quantity)
       }),
     });
-    setUserFormData({
-      albumID: null,
-      mediaID: 1,
-      conditionID: 1,
-      cost: 0,
-      quantity: 0
-    });
+    
     refreshData();
   };
 
@@ -105,15 +104,15 @@ function AddInventoryButton({ refreshData }) {
               <Form.Label htmlFor='mediaID'>Select Media Type</Form.Label>
               <Form.Select name='mediaID' value={userFormData.mediaID} onChange={handleInputChange}>
                 <option value="">Select Media Type</option>
-                <option value="1">vinyl</option>
-                <option value="2">cassette</option>
+                <option value="vinyl">vinyl</option>
+                <option value="cassette">cassette</option>
               </Form.Select>
             </Form.Group>
             <Form.Group>
               <Form.Label htmlFor='conditionID'>Select Condition</Form.Label>
               <Form.Select name='conditionID' value={userFormData.conditionID} onChange={handleInputChange}>
-                <option value="1">new</option>
-                <option value="2">used</option>
+                <option value="new">new</option>
+                <option value="used">used</option>
               </Form.Select>
             </Form.Group>
             <Form.Group>
@@ -130,17 +129,17 @@ function AddInventoryButton({ refreshData }) {
               <Form.Control.Feedback type='invalid'>Cost is required!</Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor='cost'>Enter Quantity</Form.Label>
+              <Form.Label htmlFor='quantity'>Enter Quantity</Form.Label>
               <Form.Control
                 type='number'
                 min="0"
                 placeholder='Quantity'
-                name='quanity'
+                name='quantity'
                 onChange={handleInputChange}
-                value={userFormData.quanity}
+                value={userFormData.quantity}
                 required
               />
-              <Form.Control.Feedback type='invalid'>Quanity is required!</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Quantity is required!</Form.Control.Feedback>
             </Form.Group>
           </Form>
         </Modal.Body>
