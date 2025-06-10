@@ -5,6 +5,7 @@
 DROP PROCEDURE IF EXISTS delete_album_details;
 DELIMITER //
 
+-- Delete album details by id
 CREATE PROCEDURE delete_album_details(
     IN id INT
 )
@@ -20,6 +21,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS delete_artist_album_details;
 DELIMITER //
 
+-- Delete artist-album details by foreignf key ids
 CREATE PROCEDURE delete_artist_album_details(
     IN artist_id_in INT,
     IN album_id_in INT
@@ -36,6 +38,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS delete_artists;
 DELIMITER //
 
+-- delete artist by id
 CREATE PROCEDURE delete_artists(
     IN id INT
 )
@@ -51,6 +54,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS delete_genre_album_details;
 DELIMITER //
 
+-- delete genre-album details by foreign key ids
 CREATE PROCEDURE delete_genre_album_details(
     IN genre_id_in INT,
     IN album_id_in INT
@@ -67,6 +71,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS delete_genres;
 DELIMITER //
 
+-- delete genre by id
 CREATE PROCEDURE delete_genres(
     IN id INT
 )
@@ -78,7 +83,7 @@ END; //
 
 DELIMITER ;
 
-
+-- delete inventory by id
 DROP PROCEDURE IF EXISTS delete_inventory;
 DELIMITER //
 
@@ -97,6 +102,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS select_all_album_details;
 DELIMITER //
 
+-- select all album details, concatinating artist names and genre names as necessary
 CREATE PROCEDURE select_all_album_details()
 BEGIN
     SELECT albums.album_details_id,
@@ -121,6 +127,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS select_all_artist_album_details;
 DELIMITER //
 
+-- select all artist-album details, populating named attributes from fk ids
 CREATE PROCEDURE select_all_artist_album_details()
 BEGIN
     SELECT Artist_Album_Details.artist_id, Artist_Album_Details.album_details_id ,artist_name, album_name FROM Artists
@@ -135,6 +142,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS select_all_artists;
 DELIMITER //
 
+-- select all artists
 CREATE PROCEDURE select_all_artists()
 BEGIN
     SELECT artist_id, artist_name FROM Artists;
@@ -146,6 +154,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS select_all_genre_album_details;
 DELIMITER //
 
+--select all genre-album details, populating named attributes from fk ids
 CREATE PROCEDURE select_all_genre_album_details()
 BEGIN
     SELECT Genre_Album_Details.genre_id, Genre_Album_Details.album_details_id, genre_name, album_name FROM Genres
@@ -160,6 +169,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS select_all_genres;
 DELIMITER //
 
+-- select all genres
 CREATE PROCEDURE select_all_genres()
 BEGIN
     SELECT genre_id, genre_name FROM Genres;
@@ -171,6 +181,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS select_all_inventory;
 DELIMITER //
 
+-- select all inventory items, concatinating artist names and genre names as necessary
 CREATE PROCEDURE select_all_inventory()
 BEGIN
     SELECT i.inventory_id,
@@ -202,6 +213,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insert_artist;
 DELIMITER //
 
+-- insert new artist
 CREATE PROCEDURE insert_artist(IN artist_name_input VARCHAR(255))
 BEGIN
     INSERT INTO Artists (artist_name) VALUES (artist_name_input);
@@ -215,6 +227,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insert_genre;
 DELIMITER //
 
+-- insert new genre
 CREATE PROCEDURE insert_genre(IN genre_name_input VARCHAR(255))
 BEGIN
     INSERT INTO Genres(genre_name) VALUES (genre_name_input);
@@ -227,6 +240,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insert_album_details;
 DELIMITER //
 
+-- insert new album details
 CREATE PROCEDURE insert_album_details(IN album_name_input VARCHAR(255))
 BEGIN
     INSERT INTO Album_Details(album_name) VALUES (album_name_input);
@@ -239,6 +253,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insert_artist_album_details;
 DELIMITER //
 
+-- insert new artist-album details
 CREATE PROCEDURE insert_artist_album_details(IN artist_id_input INT, album_details_id_input INT)
 BEGIN
     INSERT INTO Artist_Album_Details(artist_id, album_details_id) VALUES (artist_id_input, album_details_id_input );
@@ -252,6 +267,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insert_genre_album_details;
 DELIMITER //
 
+-- insert new genre-album details
 CREATE PROCEDURE insert_genre_album_details(IN genre_id_input INT, album_details_id_input INT)
 BEGIN
     INSERT INTO Genre_Album_Details(genre_id, album_details_id) VALUES (genre_id_input, album_details_id_input);
@@ -264,6 +280,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insert_inventory;
 DELIMITER //
 
+-- insert new inventory item
 CREATE PROCEDURE insert_inventory (IN album_details_id_input INT, media_type_input enum('vinyl','cassette'), condition_type_input enum('new','used'), cost_input DECIMAL(10,2), quantity_input INT)
 
 BEGIN
@@ -277,6 +294,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS update_album_details_by_id;
 DELIMITER //
 
+-- update album details by id
 CREATE PROCEDURE update_album_details_by_id(
     IN id INT,
     IN name VARCHAR(255)
@@ -295,6 +313,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS update_artist_album_details;
 DELIMITER //
 
+-- update artist-album details by fk ids 
 CREATE PROCEDURE update_artist_album_details(
     IN artist_id_in INT,
     IN album_id_in INT,
@@ -315,6 +334,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS update_artist_by_id;
 DELIMITER //
 
+-- update artist by id
 CREATE PROCEDURE update_artist_by_id(
     IN id INT,
     IN name VARCHAR(255)
@@ -333,6 +353,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS update_genre_album_details;
 DELIMITER //
 
+-- update genre-album dettails by fk ids
 CREATE PROCEDURE update_genre_album_details(
     IN genre_id_in INT,
     IN album_id_in INT,
@@ -353,6 +374,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS update_genre_by_id;
 DELIMITER //
 
+-- update genre by id
 CREATE PROCEDURE update_genre_by_id(
     IN id INT,
     IN name VARCHAR(255)
@@ -371,13 +393,14 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS update_inventory_by_id;
 DELIMITER //
 
+-- update inventory by id
 CREATE PROCEDURE update_inventory_by_id(
     IN id INT,
     IN album_id_in INT,
-    media_type_in enum('vinyl','cassette'),
-    condition_in enum('new','used'),
-    cost_in decimal(10,2),
-    quantity_in INT
+    IN media_type_in enum('vinyl','cassette'),
+    IN condition_in enum('new','used'),
+    IN cost_in decimal(10,2),
+    IN quantity_in INT
 )
 BEGIN
     START TRANSACTION;
