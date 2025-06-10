@@ -90,7 +90,7 @@ function Inventory({ reset }) {
         </thead>
         <tbody>
           {data !== null ? data.map((item, index) => (
-            <tr key={index}>
+            <tr className="align-middle" key={index}>
               <td>{item.inventory_id}</td>
               <td>{item.album_name}</td>
               <td>{item.artist_name}</td>
