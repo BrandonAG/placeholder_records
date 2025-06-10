@@ -4,10 +4,10 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
-  const [userFormData, setUserFormData] = useState({ artistID: artist_id, albumID: album_details_id });
+function UpdateGenreAlbumButton({ genre_id, album_details_id, refreshData }) {
+  const [userFormData, setUserFormData] = useState({ genreID: genre_id, albumID: album_details_id });
   const [show, setShow] = useState(false);
-  const [artistsData, setArtists] = useState([]);
+  const [genresData, setGenres] = useState([]);
   const [albumDetailsData, setAlbumDetails] = useState([]);
 
   const handleClose = () => setShow(false);
@@ -25,7 +25,7 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
       try {
         // inconsistent end slashes in array, problem? 
   
-        const urlsToFetch = ['/api/artists/', '/api/album-details/']
+        const urlsToFetch = ['/api/genres/', '/api/album-details/']
   
         const promises = urlsToFetch.map(url => {
           return fetch(crud_address + url, {
@@ -41,9 +41,9 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
         const fulfilledResponses = await Promise.all(responses.filter(r => r.status === "fulfilled")
           .map(r => r.value.json()));
   
-        const [artistsData = [], albumDetailsData = []] = fulfilledResponses;
+        const [genresData = [], albumDetailsData = []] = fulfilledResponses;
         //const json = await response.json();
-        setArtists(artistsData);
+        setGenres(genresData);
         setAlbumDetails(albumDetailsData);
       }
       catch (e) {
@@ -71,16 +71,16 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
     setShow(false);
 
     try {
-      fetch(crud_address + '/api/artist-album-details', {
+      fetch(crud_address + '/api/genre-album-details', {
         method: 'PUT',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          artist_id: artist_id,
+          genre_id: genre_id,
           album_details_id: album_details_id,
-          new_artist_id: userFormData.artistID,
+          new_genre_id: userFormData.genreID,
           new_album_details_id: userFormData.albumID
         }),
       })
@@ -102,15 +102,15 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Artist-Album Details</Modal.Title>
+          <Modal.Title>Update Genre-Album Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label htmlFor='artistID'>Select an Artist</Form.Label>
-              <Form.Select name='artistID' value={userFormData.artistID} onChange={handleInputChange}>
-                {artistsData !== null ? artistsData.map((item, index) => (
-                  <option key={item.artist_id} value={item.artist_id}>ID: {item.artist_id}, {item.artist_name}</option>
+              <Form.Label htmlFor='genreID'>Select a Genre</Form.Label>
+              <Form.Select name='genreID' value={userFormData.genreID} onChange={handleInputChange}>
+                {genresData !== null ? genresData.map((item, index) => (
+                  <option key={item.genre_id} value={item.genre_id}>ID: {item.genre_id}, {item.genre_name}</option>
                 )) : <></>}
               </Form.Select>
             </Form.Group>
@@ -137,4 +137,4 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
   )
 }
 
-export default UpdateArtistAlbumButton;
+export default UpdateGenreAlbumButton;

@@ -47,9 +47,6 @@ function UpdateAlbumButton({ album_details_id, album_name, refreshData }) {
       console.error(err);
     }
 
-    setUserFormData({
-      albumName: '',
-    });
   };
 
   return (

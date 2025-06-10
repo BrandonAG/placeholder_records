@@ -4,12 +4,12 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function AddArtistButton({ refreshData }) {
-  const [userFormData, setUserFormData] = useState({ artistName: '' });
+function UpdateGenreButton({ genre_id, genre_name, refreshData }) {
+  const [userFormData, setUserFormData] = useState({ genreName: genre_name });
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {setShow(true);}
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -29,17 +29,17 @@ function AddArtistButton({ refreshData }) {
     setShow(false);
 
     try {
-      fetch(crud_address + '/api/artists/', {
-        method: 'POST',
+      fetch(crud_address + '/api/genres/' + genre_id, {
+        method: 'PUT',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          artist_name: userFormData.artistName,
+          genre_name: userFormData.genreName,
         }),
       })
-        .then(response => response.text())
+        .then(response => response.json())
         .then((result) => {
           refreshData();
         });
@@ -47,40 +47,37 @@ function AddArtistButton({ refreshData }) {
       console.error(err);
     }
 
-    setUserFormData({
-      artistName: '',
-    });
   };
 
   return (
     <>
       <Button variant="outline-primary" onClick={handleShow}>
-        Add Artist
+        <i className="bi bi-pencil-fill"></i>
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Artist</Modal.Title>
+          <Modal.Title>Edit Genre</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label htmlFor='artistName'>Artist Name</Form.Label>
+              <Form.Label htmlFor='genreName'>Genre Name</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Artist Name'
-                name='artistName'
+                placeholder={genre_name}
+                name='genreName'
                 onChange={handleInputChange}
-                value={userFormData.artistName}
+                value={userFormData.genreName}
                 required
               />
-              <Form.Control.Feedback type='invalid'>Artist name is required!</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Genre name is required!</Form.Control.Feedback>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleSubmit}>
-            Add
+            Update
           </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
@@ -91,4 +88,4 @@ function AddArtistButton({ refreshData }) {
   )
 }
 
-export default AddArtistButton;
+export default UpdateGenreButton;

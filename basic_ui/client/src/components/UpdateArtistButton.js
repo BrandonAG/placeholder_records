@@ -47,9 +47,6 @@ function UpdateArtistButton({ artist_id, artist_name, refreshData }) {
       console.error(err);
     }
 
-    setUserFormData({
-      artistName: '',
-    });
   };
 
   return (

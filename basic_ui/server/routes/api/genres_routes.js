@@ -52,4 +52,21 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+   try {
+        const genre_id = req.params.id;
+        const genre_name = req.body.genre_name;
+
+        const [rows] = await connection.query(`CALL update_genre_by_id(?,?)`, [genre_id, genre_name]);
+
+        // Send back the results in JSON
+        res.status(200).json(rows)
+
+    } catch (error) {
+        console.error("Error executing query:", error);
+        // Send a generic error message to the browser
+        res.status(500).send("An error occurred while executing the database query.");
+    }
+});
+
 module.exports = router;

@@ -11,7 +11,10 @@ function AddArtistAlbumButton({ refreshData }) {
   const [albumDetailsData, setAlbumDetails] = useState([]);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    fetchData();
+    setShow(true);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

@@ -4,10 +4,10 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const crud_address = process.env.REACT_APP_CRUD_PATH || 'http://localhost:3001';
 
-function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
-  const [userFormData, setUserFormData] = useState({ artistID: artist_id, albumID: album_details_id });
+function AddGenreAlbumButton({ refreshData }) {
+  const [userFormData, setUserFormData] = useState({ genreID: null, albumID: null });
   const [show, setShow] = useState(false);
-  const [artistsData, setArtists] = useState([]);
+  const [genresData, setGenres] = useState([]);
   const [albumDetailsData, setAlbumDetails] = useState([]);
 
   const handleClose = () => setShow(false);
@@ -22,41 +22,44 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
   };
 
   const fetchData = async () => {
-      try {
-        // inconsistent end slashes in array, problem? 
-  
-        const urlsToFetch = ['/api/artists/', '/api/album-details/']
-  
-        const promises = urlsToFetch.map(url => {
-          return fetch(crud_address + url, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-          })
+    try {
+      // inconsistent end slashes in array, problem? 
+
+      const urlsToFetch = ['/api/genres/', '/api/album-details/']
+
+      const promises = urlsToFetch.map(url => {
+        return fetch(crud_address + url, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
         })
-        const responses = await Promise.allSettled(promises);
-  
-        const fulfilledResponses = await Promise.all(responses.filter(r => r.status === "fulfilled")
-          .map(r => r.value.json()));
-  
-        const [artistsData = [], albumDetailsData = []] = fulfilledResponses;
-        //const json = await response.json();
-        setArtists(artistsData);
-        setAlbumDetails(albumDetailsData);
-      }
-      catch (e) {
-  
-      }
-      finally {
-  
-      }
-    };
-  
-    useEffect(() => {
-      fetchData();
-    }, []);
+      })
+      const responses = await Promise.allSettled(promises);
+
+      const fulfilledResponses = await Promise.all(responses.filter(r => r.status === "fulfilled")
+        .map(r => r.value.json()));
+
+      const [genresData = [], albumDetailsData = []] = fulfilledResponses;
+      //const json = await response.json();
+      const artist_default = genresData[0] ? genresData[0].artist_id : null;
+      const album_default = albumDetailsData[0] ? albumDetailsData[0].album_details_id : null;
+      setUserFormData({ artistID: artist_default, albumID: album_default });
+      setGenres(genresData);
+      setAlbumDetails(albumDetailsData);
+    }
+    catch (e) {
+
+    }
+    finally {
+
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -71,17 +74,15 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
     setShow(false);
 
     try {
-      fetch(crud_address + '/api/artist-album-details', {
-        method: 'PUT',
+      fetch(crud_address + '/api/genre-album-details', {
+        method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          artist_id: artist_id,
-          album_details_id: album_details_id,
-          new_artist_id: userFormData.artistID,
-          new_album_details_id: userFormData.albumID
+          genre_id: userFormData.genreID,
+          album_details_id: userFormData.albumID,
         }),
       })
         .then(response => response.text())
@@ -92,25 +93,29 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
       console.error(err);
     }
 
+    setUserFormData({
+      genreID: null,
+      albumID: null
+    });
   };
 
   return (
     <>
       <Button variant="outline-primary" onClick={handleShow}>
-        <i className="bi bi-pencil-fill"></i>
+        Add Genre-Album Details
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Artist-Album Details</Modal.Title>
+          <Modal.Title>Add Genre-Album Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label htmlFor='artistID'>Select an Artist</Form.Label>
-              <Form.Select name='artistID' value={userFormData.artistID} onChange={handleInputChange}>
-                {artistsData !== null ? artistsData.map((item, index) => (
-                  <option key={item.artist_id} value={item.artist_id}>ID: {item.artist_id}, {item.artist_name}</option>
+              <Form.Label htmlFor='genreID'>Select a Genre</Form.Label>
+              <Form.Select name='genreID' value={userFormData.artistID} onChange={handleInputChange}>
+                {genresData !== null ? genresData.map((item, index) => (
+                  <option key={item.genre_id} value={item.genre_id}>ID: {item.genre_id}, {item.genre_name}</option>
                 )) : <></>}
               </Form.Select>
             </Form.Group>
@@ -126,7 +131,7 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleSubmit}>
-            Update
+            Add
           </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
@@ -137,4 +142,4 @@ function UpdateArtistAlbumButton({ artist_id, album_details_id, refreshData }) {
   )
 }
 
-export default UpdateArtistAlbumButton;
+export default AddGenreAlbumButton;

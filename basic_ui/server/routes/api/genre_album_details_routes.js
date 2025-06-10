@@ -55,4 +55,24 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/', async (req, res) => {
+   try {
+        const genre_id = req.body.genre_id;
+        const album_details_id = req.body.album_details_id;
+        const new_genre_id = req.body.new_genre_id;
+        const new_album_details_id = req.body.new_album_details_id;
+        console.log('Received PUT data:', { genre_id, album_details_id });
+
+        const [rows] = await connection.query(`CALL update_genre_album_details(?, ?, ?, ?)`, [genre_id, album_details_id, new_genre_id, new_album_details_id]);
+
+        // Send back the results in JSON
+        res.status(200).json(rows[0])
+
+    } catch (error) {
+        console.error("Error executing query:", error);
+        // Send a generic error message to the browser
+        res.status(500).send("An error occurred while executing the database query.");
+    }
+});
+
 module.exports = router;
