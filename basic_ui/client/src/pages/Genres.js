@@ -75,12 +75,14 @@ function Genres({ reset }) {
             <tr className="align-middle" key={index}>
               <td>{item.genre_id}</td>
               <td>{item.genre_name}</td>
-              <div className="d-flex flex-wrap justify-content-center gap-2">
-                <UpdateGenreButton genre_id={item.genre_id} genre_name={item.genre_name} refreshData={fetchData} />
-                <Button variant="outline-danger" onClick={() => { handleDelete(item.genre_id) }}>
-                  <i className="bi bi-trash3-fill"></i>
-                </Button>
-              </div>
+              <td>
+                <div className="d-flex flex-wrap justify-content-center gap-2">
+                  <UpdateGenreButton genre_id={item.genre_id} genre_name={item.genre_name} refreshData={fetchData} />
+                  <Button variant="outline-danger" onClick={() => { handleDelete(item.genre_id) }}>
+                    <i className="bi bi-trash3-fill"></i>
+                  </Button>
+                </div>
+              </td>
             </tr>
           )) : <></>}
         </tbody>
