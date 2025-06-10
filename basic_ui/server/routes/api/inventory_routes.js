@@ -57,5 +57,27 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+   try {
+        const inventory_id = req.params.id;
+        const album_details_id = req.body.album_id;
+        const media_type = req.body.media_type;
+        const condition_type = req.body.condition_type;
+        const cost = req.body.cost;
+        const quantity = req.body.quantity;
+
+
+        const [rows] = await connection.query(`CALL update_inventory_by_id(?, ?, ?, ?, ?, ?)`, [inventory_id, album_details_id, media_type, condition_type, cost, quantity]);
+
+        // Send back the results in JSON
+        res.status(200).json(rows[0])
+
+    } catch (error) {
+        console.error("Error executing query:", error);
+        // Send a generic error message to the browser
+        res.status(500).send("An error occurred while executing the database query.");
+    }
+});
+
 
 module.exports = router;

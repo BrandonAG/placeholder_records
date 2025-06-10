@@ -173,9 +173,27 @@ DELIMITER //
 
 CREATE PROCEDURE select_all_inventory()
 BEGIN
-    SELECT inventory_id, album_name, media_type, condition_type, cost, quantity FROM Inventory
-    INNER JOIN Album_Details ON Inventory.album_details_id = Album_Details.album_details_id
-    ORDER BY inventory_id;
+    SELECT i.inventory_id,
+        i.album_details_id,
+        i.media_type,
+        i.condition_type,
+        i.cost,
+        i.quantity,
+        albums.album_name,
+        GROUP_CONCAT(DISTINCT Artists.artist_name SEPARATOR ', ') AS artist_name,
+        GROUP_CONCAT(DISTINCT Genres.genre_name SEPARATOR ', ') AS genre_name
+        FROM Inventory AS i
+    JOIN Album_Details as albums
+        ON i.album_details_id = albums.album_details_id
+    LEFT JOIN Artist_Album_Details AS aa
+        ON albums.album_details_id = aa.album_details_id
+    LEFT JOIN Artists
+        ON aa.artist_id = Artists.artist_id
+    LEFT JOIN Genre_Album_Details AS ga
+        ON albums.album_details_id = ga.album_details_id
+    LEFT JOIN Genres
+        ON ga.genre_id = Genres.genre_id
+    GROUP BY i.inventory_id;
 END; //
 
 DELIMITER ;
@@ -246,7 +264,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS insert_inventory;
 DELIMITER //
 
-CREATE PROCEDURE insert_inventory (IN album_details_id_input INT, media_type_input INT, condition_type_input INT, cost_input FLOAT, quantity_input INT)
+CREATE PROCEDURE insert_inventory (IN album_details_id_input INT, media_type_input INT, condition_type_input INT, cost_input DECIMAL(10,2), quantity_input INT)
 
 BEGIN
     INSERT INTO Inventory(album_details_id, media_type, condition_type, cost, quantity) VALUES (album_details_id_input, media_type_input, condition_type_input, cost_input, quantity_input);
@@ -358,7 +376,7 @@ CREATE PROCEDURE update_inventory_by_id(
     IN album_id_in INT,
     media_type_in enum('vinyl','cassette'),
     condition_in enum('new','used'),
-    cost_in decimal(10,0),
+    cost_in decimal(10,2),
     quantity_in INT
 )
 BEGIN
