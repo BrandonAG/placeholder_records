@@ -66,8 +66,8 @@ function Genres({ reset }) {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>genre_id</th>
-            <th>genre_name</th>
+            <th>id</th>
+            <th>name</th>
           </tr>
         </thead>
         <tbody>

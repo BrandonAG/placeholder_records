@@ -65,8 +65,8 @@ function Artists({ reset }) {
       <Table striped bordered hover>
       <thead>
         <tr>
-          <th>artist_id</th>
-          <th>artist_name</th>
+          <th>id</th>
+          <th>name</th>
         </tr>
       </thead>
       <tbody>

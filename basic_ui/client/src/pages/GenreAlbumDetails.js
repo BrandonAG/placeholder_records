@@ -73,15 +73,15 @@ function GenreAlbumDetails({ reset }) {
 
   return (
     <>
-      <h1 className="lead display-6 m-0 mt-2">Genre_Album_Details</h1>
+      <h1 className="lead display-6 m-0 mt-2">Genre-Album Details</h1>
       <div className="p-3">
         <AddGenreAlbumButton refreshData={fetchData} />
       </div>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>genre_name</th>
-            <th>album_name</th>
+            <th>genre</th>
+            <th>album</th>
           </tr>
         </thead>
         <tbody>

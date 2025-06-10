@@ -74,15 +74,15 @@ function ArtistAlbumDetails({ reset }) {
 
   return (
     <>
-      <h1 className="lead display-6 m-0 mt-2">Artist_Album_Details</h1>
+      <h1 className="lead display-6 m-0 mt-2">Artist-Album Details</h1>
       <div className="p-3">
         <AddArtistAlbumButton refreshData={fetchData} />
       </div>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>artist_name</th>
-            <th>album_name</th>
+            <th>artist</th>
+            <th>album</th>
           </tr>
         </thead>
         <tbody>

@@ -79,11 +79,11 @@ function Inventory({ reset }) {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>inventory_id</th>
-            <th>album_name</th>
-            <th>artist_name</th>
-            <th>media_type</th>
-            <th>condition_type</th>
+            <th>id</th>
+            <th>album</th>
+            <th>artist</th>
+            <th>media type</th>
+            <th>condition</th>
             <th>cost</th>
             <th>quantity</th>
           </tr>
