@@ -37,7 +37,7 @@
   }
 }
 
-form {
+/* form {
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
@@ -45,4 +45,4 @@ form {
   border-radius: 8px;
   width: 300px;
   align-content: center;
-}
+} */
